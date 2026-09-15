@@ -4,18 +4,19 @@ import { hashPassword } from "@/lib/auth-utils";
 import crypto from "crypto";
 import { getUserOrdersForBot, forwardCustomerSupportMessage } from "@/lib/telegram";
 
-const BOT_TOKEN = process.env.TELEGRAM_CUSTOMER_BOT_TOKEN || "8679198732:AAFnTD1-pKA-UYTaG_Hnapd2NIjICPMNMOE";
+const BOT_TOKEN = process.env.TELEGRAM_CUSTOMER_BOT_TOKEN || "8947811419:AAE8Z2LX6hR925mIs_mVYkIZ5f8GIojvK3c";
 const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://velari.uz";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
 
-// Bosh menyu (Reply Keyboard)
-const MAIN_KEYBOARD = {
+// Bosh menyu (Reply Keyboard with Telegram Mini App web_app button)
+const getMainKeyboard = (siteUrl: string = SITE_URL) => ({
     keyboard: [
-        [{ text: "📱 Ro'yxatdan o'tish / Saytga kirish" }, { text: "🛍 Mening buyurtmalarim" }],
+        [{ text: "🛍 Do'konni ochish (Mini App)", web_app: { url: siteUrl } }],
+        [{ text: "📱 Ro'yxatdan o'tish / Saytga kirish" }, { text: "📦 Mening buyurtmalarim" }],
         [{ text: "💬 Operatorga yozish" }, { text: "❓ Savol-javob (FAQ)" }]
     ],
     resize_keyboard: true
-};
+});
 
 // Jarayonlarni bekor qilish tugmasi
 const CANCEL_KEYBOARD = {
@@ -35,13 +36,14 @@ const FAQ_INLINE_KEYBOARD = {
 };
 
 async function sendTelegramMessage(chatId: number | string, text: string, replyMarkup?: any) {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || SITE_URL;
     await fetch(`${TELEGRAM_API}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             chat_id: chatId,
             text,
-            reply_markup: replyMarkup !== undefined ? replyMarkup : MAIN_KEYBOARD,
+            reply_markup: replyMarkup !== undefined ? replyMarkup : getMainKeyboard(siteUrl),
             parse_mode: "HTML"
         }),
     });
@@ -61,7 +63,6 @@ async function answerCallbackQuery(callbackQueryId: string, text?: string) {
 async function animateAndDeletePasswordMessage(chatId: number | string, messageId?: number | null) {
     if (!messageId) return;
     try {
-        // 1. Matnni xavfsiz holatga o'zgartirib animatsion visual effekt berish
         await fetch(`${TELEGRAM_API}/editMessageText`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -73,10 +74,8 @@ async function animateAndDeletePasswordMessage(chatId: number | string, messageI
             }),
         });
 
-        // 2. Kichik taymer (efektni ko'rish uchun)
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        // 3. Telegram chatidan to'liq o'chirish
         await fetch(`${TELEGRAM_API}/deleteMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,7 +83,6 @@ async function animateAndDeletePasswordMessage(chatId: number | string, messageI
         });
     } catch { /* ignore error */ }
 }
-
 
 function decodeNextPath(payload?: string): string | null {
     if (!payload || payload === "register") return null;
@@ -95,9 +93,55 @@ function decodeNextPath(payload?: string): string | null {
     return null;
 }
 
+/**
+ * GET: Webhook va Telegram Mini App (Menu Button) avtomatik sozlash endpointi
+ * Sayt Vercel'ga deploy bo'lgach, https://sayt-nomi.vercel.app/api/bot ga kirilganda
+ * webhook va do'kon tugmasini bir marta avtomatik sozlaydi.
+ */
+export async function GET(req: Request) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
+        const proto = req.headers.get("x-forwarded-proto") || "https";
+        const currentOrigin = `${proto}://${host}`;
+        const siteUrl = searchParams.get("url") || process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || currentOrigin;
+
+        const webhookUrl = `${siteUrl}/api/bot`;
+
+        // 1. Telegram Webhook o'rnatish
+        const hookRes = await fetch(`${TELEGRAM_API}/setWebhook?url=${encodeURIComponent(webhookUrl)}&drop_pending_updates=true`);
+        const hookData = await hookRes.json();
+
+        // 2. Telegram Mini App (Do'kon ochish menyu tugmasi)
+        const menuRes = await fetch(`${TELEGRAM_API}/setChatMenuButton`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                menu_button: {
+                    type: "web_app",
+                    text: "🛍 Do'kon",
+                    web_app: { url: siteUrl }
+                }
+            })
+        });
+        const menuData = await menuRes.json();
+
+        return NextResponse.json({
+            ok: true,
+            siteUrl,
+            webhookUrl,
+            setWebhookResult: hookData,
+            setChatMenuButtonResult: menuData
+        });
+    } catch (e: any) {
+        return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
+    }
+}
+
 export async function POST(req: Request) {
     try {
         const body = await req.json();
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || SITE_URL;
 
         // 1. Callback Query handling (Inline tugmalar uchun)
         if (body.callback_query) {
@@ -118,8 +162,8 @@ export async function POST(req: Request) {
             } else if (data === "faq_payment") {
                 await sendTelegramMessage(chatId,
                     "💳 <b>To'lov usullari:</b>\n\n" +
-                    "• <b>Click / Payme:</b> Onlayn to'lov qilish imkoniyati.\n" +
-                    "• <b>Naqd to'lov:</b> Mahsulot eshigingizga yetib borganda tekshirib olingandan so'ng to'lanadi.",
+                    "• <b>Naqd to'lov:</b> Mahsulot eshigingizga yetib borganda tekshirib olingandan so'ng to'lanadi.\n" +
+                    "• <b>Karta orqali:</b> Mahsulotni qabul qilib olganda to'lash mumkin.",
                     FAQ_INLINE_KEYBOARD
                 );
             } else if (data === "faq_return") {
@@ -146,6 +190,23 @@ export async function POST(req: Request) {
                     "Savolingiz yoki murojaatingizni yozib yuboring. Operatorlarimiz tez orada sizga javob qaytarishadi.",
                     CANCEL_KEYBOARD
                 );
+            } else if (data === "start_register") {
+                await supabaseAdmin.from("bot_sessions").upsert({
+                    chat_id: chatId.toString(),
+                    step: "await_contact",
+                    updated_at: new Date().toISOString(),
+                });
+
+                await sendTelegramMessage(chatId,
+                    "Ro'yxatdan o'tish yoki parolni tiklash uchun quyidagi tugmani bosib telefon raqamingizni yuboring:",
+                    {
+                        keyboard: [
+                            [{ text: "📱 Kontaktni yuborish", request_contact: true }],
+                            [{ text: "❌ Bekor qilish / Orqaga" }]
+                        ],
+                        resize_keyboard: true
+                    }
+                );
             }
             return NextResponse.json({ ok: true });
         }
@@ -160,7 +221,7 @@ export async function POST(req: Request) {
             await supabaseAdmin.from("bot_sessions").delete().eq("chat_id", chatId.toString());
             await sendTelegramMessage(chatId,
                 "❌ Jarayon bekor qilindi. Bosh menyuga qaytildi:",
-                MAIN_KEYBOARD
+                getMainKeyboard(siteUrl)
             );
             return NextResponse.json({ ok: true });
         }
@@ -179,11 +240,35 @@ export async function POST(req: Request) {
 
             await supabaseAdmin.from("bot_sessions").delete().eq("chat_id", chatId.toString());
 
+            // Agar saytdagi ro'yxatdan o'tish tugmasi orqali kelgan bo'lsa
+            if (payload === "register" || nextPath) {
+                await supabaseAdmin.from("bot_sessions").upsert({
+                    chat_id: chatId.toString(),
+                    step: "await_contact",
+                    next_path: nextPath || null,
+                    updated_at: new Date().toISOString(),
+                });
+
+                await sendTelegramMessage(chatId,
+                    `Assalomu alaykum, <b>${chat.first_name || 'Mijoz'}</b>!\n\n` +
+                    `<b>Eltron</b> do'koniga xush kelibsiz! ✨\n\n` +
+                    `Saytga kirish yoki yangi akkaunt ochish uchun quyidagi <b>"📱 Kontaktni yuborish"</b> tugmasini bosing:`,
+                    {
+                        keyboard: [
+                            [{ text: "📱 Kontaktni yuborish", request_contact: true }],
+                            [{ text: "❌ Bekor qilish / Orqaga" }]
+                        ],
+                        resize_keyboard: true
+                    }
+                );
+                return NextResponse.json({ ok: true });
+            }
+
             await sendTelegramMessage(chatId,
                 `Assalomu alaykum, <b>${chat.first_name || 'Mijoz'}</b>!\n\n` +
-                `<b>Velari</b> rasmiy yordamchi botiga xush kelibsiz! ✨\n\n` +
-                `Quyidagi menyu orqali ro'yxatdan o'tishingiz, buyurtmalaringiz holatini ko'rishingiz yoki operatorimiz bilan bog'lanishingiz mumkin:`,
-                MAIN_KEYBOARD
+                `<b>Eltron</b> rasmiy do'koni va yordamchi botiga xush kelibsiz! ✨\n\n` +
+                `Saytimizdan qulay xarid qilish uchun quyidagi <b>"🛍 Do'konni ochish"</b> tugmasini bosing yoki menyudan foydalaning:`,
+                getMainKeyboard(siteUrl)
             );
             return NextResponse.json({ ok: true });
         }
@@ -209,9 +294,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ ok: true });
         }
 
-        if (text === "🛍 Mening buyurtmalarim") {
+        if (text === "📦 Mening buyurtmalarim" || text === "🛍 Mening buyurtmalarim") {
             const ordersInfo = await getUserOrdersForBot(chatId.toString());
-            await sendTelegramMessage(chatId, ordersInfo.text, MAIN_KEYBOARD);
+            await sendTelegramMessage(chatId, ordersInfo.text, getMainKeyboard(siteUrl));
             return NextResponse.json({ ok: true });
         }
 
@@ -302,14 +387,17 @@ export async function POST(req: Request) {
                     expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
                 });
 
-                const returnUrl = `${SITE_URL}/uz/auth?lt=${loginToken}`;
+                const returnUrl = `${siteUrl}/uz/auth?lt=${loginToken}`;
 
                 await sendTelegramMessage(chatId,
                     `✅ <b>Parolingiz muvaffaqiyatli saqlandi!</b>\n\n` +
                     `Telefon: <code>${session.phone}</code>\n\n` +
                     `Quyidagi tugma orqali saytga <b>avtomatik kirgan holda</b> o'tishingiz mumkin:`,
                     {
-                        inline_keyboard: [[{ text: "🌐 Saytga kirish", url: returnUrl }]]
+                        inline_keyboard: [
+                            [{ text: "🛍 Saytga kirish (Mini App)", web_app: { url: returnUrl } }],
+                            [{ text: "🌐 Brauzerda ochish", url: returnUrl }]
+                        ]
                     }
                 );
 
@@ -337,7 +425,7 @@ export async function POST(req: Request) {
             } else {
                 await sendTelegramMessage(chatId,
                     "Tizimda kichik xatolik yuz berdi. Iltimos, qaytadan yozib ko'ring yoki birozdan so'ng urinib ko'ring.",
-                    MAIN_KEYBOARD
+                    getMainKeyboard(siteUrl)
                 );
             }
         }

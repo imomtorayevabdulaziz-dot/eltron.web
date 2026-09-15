@@ -248,8 +248,8 @@ export default async function RootLayout({
 
                 <link rel="preconnect" href="https://storage.yandexcloud.net" crossOrigin="anonymous" />
                 <link rel="dns-prefetch" href="https://storage.yandexcloud.net" />
-                <link rel="preconnect" href="https://slmbethqqqugnktxwzdz.supabase.co" crossOrigin="anonymous" />
-                <link rel="dns-prefetch" href="https://slmbethqqqugnktxwzdz.supabase.co" />
+                <link rel="preconnect" href="https://osevbdcuqdfuczgitzfq.supabase.co" crossOrigin="anonymous" />
+                <link rel="dns-prefetch" href="https://osevbdcuqdfuczgitzfq.supabase.co" />
 
                 <script
                     type="application/ld+json"
