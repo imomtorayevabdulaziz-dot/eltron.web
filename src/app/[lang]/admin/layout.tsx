@@ -392,11 +392,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {/* Main Content */}
             <main className="flex-1 lg:ml-72 min-h-screen pb-20 lg:pb-0">
                 {/* Header for Mobile */}
-                <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex justify-between items-center sticky top-0 z-40 lg:hidden">
-                    <button onClick={() => setIsSidebarOpen(true)} className="p-2 bg-gray-50 rounded-xl">
+                <header className="bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-2.5 flex justify-between items-center sticky top-0 z-40 lg:hidden">
+                    <button onClick={() => setIsSidebarOpen(true)} className="p-2 bg-gray-50 rounded-xl text-gray-700 active:scale-95 transition-transform">
                         <Menu size={22} />
                     </button>
-                    <h1 className="font-black tracking-tighter italic text-sm">ADMIN PANEL</h1>
+                    <div className="flex items-center gap-2">
+                        <Logo size="sm" />
+                        <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-widest bg-[#2D6E3E] text-white rounded-full">
+                            ADMIN
+                        </span>
+                    </div>
                     <div className="w-9"></div>
                 </header>
 

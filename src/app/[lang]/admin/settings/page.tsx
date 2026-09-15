@@ -97,7 +97,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.name}
                                 onChange={e => setShopData({ ...shopData, name: e.target.value })}
-                                placeholder="Velari"
+                                placeholder="Eltron"
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                                 required
                             />
@@ -152,7 +152,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.telegram_admin}
                                 onChange={e => setShopData({ ...shopData, telegram_admin: e.target.value })}
-                                placeholder="@VELARI_UZ_ADMIN yoki https://t.me/..."
+                                placeholder="@Eltron_uz_admin_bot yoki https://t.me/..."
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                                 required
                             />
@@ -168,7 +168,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.telegram_channel}
                                 onChange={e => setShopData({ ...shopData, telegram_channel: e.target.value })}
-                                placeholder="https://t.me/velariuz yoki velariuz"
+                                placeholder="https://t.me/Eltron_uz_bot yoki Eltron_uz_bot"
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                                 required
                             />
@@ -184,7 +184,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.instagram}
                                 onChange={e => setShopData({ ...shopData, instagram: e.target.value })}
-                                placeholder="velari_uz_ yoki https://instagram.com/..."
+                                placeholder="eltron_uz yoki https://instagram.com/..."
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                                 required
                             />
@@ -200,7 +200,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.facebook || ""}
                                 onChange={e => setShopData({ ...shopData, facebook: e.target.value })}
-                                placeholder="velari.uz yoki https://facebook.com/..."
+                                placeholder="eltron.uz yoki https://facebook.com/..."
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                             />
                         </div>
@@ -214,7 +214,7 @@ export default function AdminSettings() {
                                 type="text"
                                 value={shopData.youtube || ""}
                                 onChange={e => setShopData({ ...shopData, youtube: e.target.value })}
-                                placeholder="@velariuz yoki https://youtube.com/..."
+                                placeholder="@eltronuz yoki https://youtube.com/..."
                                 className="w-full bg-gray-50 border-2 border-transparent focus:border-black rounded-2xl px-5 py-3.5 text-sm font-bold outline-none transition-all"
                             />
                         </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-    title: "404 - Sahifa topilmadi | Velari",
+    title: "404 - Sahifa topilmadi | Eltron",
     robots: {
         index: false,
         follow: false,

@@ -11,9 +11,9 @@ type Lang = "uz" | "ru";
 
 const CONTENT: Record<Lang, any> = {
     ru: {
-        badge: "Velari Market",
+        badge: "Eltron",
         title: "Условия возврата и обмена",
-        intro: "Мы стремимся обеспечить максимальный комфорт и прозрачность при покупках в интернет-магазине Velari Market. Все процедуры возврата и обмена осуществляются строго в соответствии с Законом Республики Узбекистан «О защите прав потребителей» и Правилами розничной торговли.",
+        intro: "Мы стремимся обеспечить максимальный комфорт и прозрачность при покупках в интернет-магазине Eltron. Все процедуры возврата и обмена осуществляются строго в соответствии с Законом Республики Узбекистан «О защите прав потребителей» и Правилами розничной торговли.",
         addressLabel: "Адрес для возврата",
         address: "г. Ташкент, Сергелийский район, ул. М. Замахшари, 4-й проезд, 17А",
         contactTitle: "Контакты для оформления возврата",
@@ -48,7 +48,7 @@ const CONTENT: Record<Lang, any> = {
                     "Замена на аналогичный товар.",
                     "Полный возврат уплаченной суммы.",
                 ],
-                delivery: "Все транспортные расходы и услуги курьерской доставки берёт на себя Velari Market.",
+                delivery: "Все транспортные расходы и услуги курьерской доставки берёт на себя Eltron.",
                 deliveryBy: "seller",
             },
             {
@@ -64,9 +64,9 @@ const CONTENT: Record<Lang, any> = {
         ],
     },
     uz: {
-        badge: "Velari Market",
+        badge: "Eltron",
         title: "Qaytarish va almashtirish shartlari",
-        intro: "Biz Velari Market internet-do'konida xaridlar qulay va shaffof bo'lishini ta'minlashga intilamiz. Tovarlarni qaytarish va almashtirishning barcha jarayonlari O'zbekiston Respublikasining «Iste'molchilarning huquqlarini himoya qilish to'g'risida»gi Qonuniga muvofiq amalga oshiriladi.",
+        intro: "Biz Eltron internet-do'konida xaridlar qulay va shaffof bo'lishini ta'minlashga intilamiz. Tovarlarni qaytarish va almashtirishning barcha jarayonlari O'zbekiston Respublikasining «Iste'molchilarning huquqlarini himoya qilish to'g'risida»gi Qonuniga muvofiq amalga oshiriladi.",
         addressLabel: "Qaytarish manzili",
         address: "Toshkent shahri, Sergeli tumani, M. Zamaxshariy 4-tor ko'chasi, 17A",
         contactTitle: "Qaytarish uchun aloqa",
@@ -101,7 +101,7 @@ const CONTENT: Record<Lang, any> = {
                     "Xuddi shunday sifatli modelga almashtirish.",
                     "To'langan pulni to'liq qaytarib olish.",
                 ],
-                delivery: "Brak tovarlarni qaytarish yoki almashtirish bilan bog'liq barcha kuryerlik xarajatlari Velari Market tomonidan to'lanadi.",
+                delivery: "Brak tovarlarni qaytarish yoki almashtirish bilan bog'liq barcha kuryerlik xarajatlari Eltron tomonidan to'lanadi.",
                 deliveryBy: "seller",
             },
             {

@@ -136,7 +136,7 @@ export default function BrandedEmptyState({
                 <div className="max-w-[1600px] mx-auto px-6 md:px-10 pb-32">
                     <div className="flex items-center justify-between mb-8">
                         <div className="space-y-1">
-                            <p className="text-xs font-semibold text-[#737D75] uppercase tracking-wider">Velari Trend</p>
+                            <p className="text-xs font-semibold text-[#737D75] uppercase tracking-wider">Eltron Trend</p>
                             <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#111612]">
                                 {language === 'uz' ? "Ommabop mahsulotlar" : "Популярные товары"}
                             </h2>
@@ -176,7 +176,7 @@ export default function BrandedEmptyState({
             {/* Footer Brand Label */}
             <div className="border-t border-gray-50 py-10 text-center">
                 <p className="text-[8px] font-black text-gray-300 uppercase tracking-[0.5em] select-none">
-                    Velari Market • Premium Electronics Experience
+                    Eltron • Premium Electronics Experience
                 </p>
             </div>
         </div>

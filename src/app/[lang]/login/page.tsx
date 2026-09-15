@@ -141,15 +141,15 @@ function LoginContent() {
                     <>
                         {/* Icon */}
                         <div style={{
-                            width: 76, height: 76, borderRadius: 22, background: GREEN_TINT,
+                            width: 76, height: 76, borderRadius: 22,
                             display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18,
                         }}>
-                            <User size={36} color={GREEN} />
+                            <img src="/logo-icon.png?v=eltron_gold" alt="Eltron" style={{ width: 72, height: 72, objectFit: "contain" }} />
                         </div>
 
                         {/* Heading */}
                         <h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, letterSpacing: -0.6, color: "#0F1410", lineHeight: 1.15 }}>
-                            {language === 'uz' ? "Velari'ga kiring" : 'Войдите в Velari'}
+                            {language === 'uz' ? "Eltron'ga kiring" : 'Войдите в Eltron'}
                         </h1>
                         <p style={{ marginTop: 8, fontSize: 15, color: "#5A625C", lineHeight: 1.5, letterSpacing: -0.1 }}>
                             {language === 'uz'

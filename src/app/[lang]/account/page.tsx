@@ -216,8 +216,8 @@ function AccountContent() {
     if (!user) {
         return (
             <div style={{ minHeight: "100vh", background: "#FAFAF6", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 24, padding: 32 }}>
-                <div style={{ width: 100, height: 100, borderRadius: 50, background: "#EAF3EC", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <User size={48} color="#2D6E3E" />
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 4 }}>
+                    <img src="/logo-icon.png?v=eltron_gold" alt="Eltron" style={{ width: 88, height: 88, objectFit: "contain" }} />
                 </div>
                 <div>
                     <h2 style={{ fontSize: 22, fontWeight: 700, color: "#0F1410", letterSpacing: -0.3, marginBottom: 8 }}>{t.account.login}</h2>
@@ -503,7 +503,7 @@ function AccountContent() {
 
                 {/* Footer */}
                 <div className="py-4 flex flex-col items-center gap-1">
-                    <div className="text-xs font-medium text-[#737D75]/60">Velari v1.2.5</div>
+                    <div className="text-xs font-medium text-[#737D75]/60">Eltron v1.2.5</div>
                 </div>
 
             </div>
@@ -710,8 +710,8 @@ function ReviewsView({ user, language, showToast, onBack }: any) {
                                         {c.reply && (
                                             <div className="bg-gray-50 p-4 rounded-2xl border-l-4 border-black mt-4 ml-2">
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <div className="w-4 h-4 bg-black rounded flex items-center justify-center text-[8px] text-white font-black italic">V</div>
-                                                    <span className="text-[8px] font-black uppercase tracking-widest">VELARI ADMIN</span>
+                                                    <div className="w-4 h-4 bg-black rounded flex items-center justify-center text-[8px] text-[#D4AF37] font-black italic">E</div>
+                                                    <span className="text-[8px] font-black uppercase tracking-widest">ELTRON ADMIN</span>
                                                 </div>
                                                 <p className="text-xs font-bold text-gray-600 leading-relaxed italic">{c.reply}</p>
                                             </div>

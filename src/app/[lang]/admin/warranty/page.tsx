@@ -52,9 +52,9 @@ function WarrantyContent() {
 
     // Warranty settings
     const [warrantyMonths, setWarrantyMonths] = useState<number>(6);
-    const [storeName, setStoreName] = useState('"Velari uz" internet do\'koni');
-    const [storePhone, setStorePhone] = useState("+998 (95) 082 11 88");
-    const [storeWebsite, setStoreWebsite] = useState("velari.uz");
+    const [storeName, setStoreName] = useState('"Eltron uz" internet do\'koni');
+    const [storePhone, setStorePhone] = useState("+998 (94) 792 99 11");
+    const [storeWebsite, setStoreWebsite] = useState("eltron.uz");
     const [copied, setCopied] = useState(false);
 
     // Fetch orders from admin API
@@ -531,7 +531,7 @@ function CertificateCard({
                 <div className="border-b-2 border-teal-600 pb-4 flex items-start justify-between">
                     <div>
                         <div className="text-2xl font-black uppercase tracking-widest text-teal-800">
-                            VELARI.UZ
+                            ELTRON.UZ
                         </div>
                         <div className="text-[11px] font-medium text-slate-500 mt-1">
                             Rasmiy Internet Do'koni & Servis Markazi
@@ -701,7 +701,7 @@ function CertificateCard({
                         >
                             <div className="w-20 h-20 rounded-full border border-dashed border-teal-500 flex flex-col items-center justify-center p-1">
                                 <span className="text-[9px] font-black tracking-wider uppercase">
-                                    VELARI.UZ
+                                    ELTRON.UZ
                                 </span>
                                 <span className="text-[8px] font-extrabold border-y border-teal-600 my-0.5 py-0.5 w-full text-center">
                                     {warrantyMonths} OY KAFOLAT

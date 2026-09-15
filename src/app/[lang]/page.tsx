@@ -99,7 +99,7 @@ async function getInitialData() {
         return { products, categories, banners, bannerSettings, promoSettings, featuredCategories };
     } catch (error) {
         console.error("Server-side fetch failed:", error);
-        return { products: [], categories: [], banners: [], bannerSettings: { desktopHeight: 210, borderRadius: 32 }, promoSettings: null, featuredCategories: [] };
+        return { products: [], categories: [], banners: [], bannerSettings: { desktopHeight: 420, borderRadius: 28 }, promoSettings: null, featuredCategories: [] };
     }
 }
 
