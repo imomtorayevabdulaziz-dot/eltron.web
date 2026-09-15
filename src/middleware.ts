@@ -27,6 +27,8 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export async function middleware(request: NextRequest) {
+    const { pathname } = request.nextUrl;
+
     // 0. Clean /[lang]/api/... into /api/...
     if (pathname.includes('/api/')) {
         const apiIdx = pathname.indexOf('/api/');
