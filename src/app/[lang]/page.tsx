@@ -8,16 +8,16 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
     const lang = params.lang || 'uz';
-    const baseUrl = 'https://velari.uz';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     
     return {
         title: lang === 'uz' 
-            ? "Velari | O'zbekistonda №1 Premium Elektronika Do'koni" 
-            : "Velari | Премиум магазин электроники №1 в Узбекистане",
+            ? "Eltron | O'zbekistonda №1 Premium Elektronika Do'koni" 
+            : "Eltron | Премиум магазин электроники №1 в Узбекистане",
         description: lang === 'uz'
             ? "iPhone, Samsung, Xiaomi va boshqa global brendlarni muddatli to'lovga sotib oling. Toshkent bo'ylab tekin yetkazib berish va rasmiy kafolat."
             : "Покупайте iPhone, Samsung, Xiaomi и другие мировые бренды в рассрочку. Бесплатная доставка по Ташкенту и официальная гарантия.",
-        keywords: ["Velari", "elektronika do'koni", "Toshkent", "muddatli to'lov", "iphone narxi", "samsung narxi", "O'zbekiston"],
+        keywords: ["Eltron", "elektronika do'koni", "Toshkent", "muddatli to'lov", "iphone narxi", "samsung narxi", "O'zbekiston"],
         alternates: {
             canonical: `${baseUrl}/${lang}`,
             languages: {
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     };
 }
 
-export const revalidate = 86400; // 24 soatda bir marta yangilanadi (ISR limitni tejash uchun)
+export const revalidate = 0; // Har doim eng yangi bannerlar va mahsulotlarni bazadan olish uchun
 
 async function getInitialData() {
     try {

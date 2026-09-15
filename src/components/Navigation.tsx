@@ -185,12 +185,11 @@ export default function Navigation() {
                     <div className="shrink-0 group">
                         <div className="md:hidden">
                             <Link
-                                href={l("/catalog")}
+                                href={l("/")}
                                 onClick={() => videoPreWarmer.triggerHaptic("light")}
-                                className="ios-tap-feedback active:scale-95 transition-transform duration-150 flex items-center gap-2 bg-[#EAF3EC] px-4 py-2.5 rounded-xl outline-none will-change-transform"
+                                className="ios-tap-feedback active:scale-95 transition-transform duration-150 flex items-center will-change-transform"
                             >
-                                <LayoutGrid size={19} strokeWidth={2.2} className="text-[#2D6E3E]" />
-                                <span className="text-xs font-semibold text-[#2D6E3E]">Katalog</span>
+                                <Logo size="sm" showSmile={false} className="!items-start" />
                             </Link>
                         </div>
                         <div className="hidden md:block">

@@ -165,14 +165,16 @@ export default async function RootLayout({
     if (settings.facebook) sameAs.push(formatFacebookLink(settings.facebook));
     if (settings.youtube) sameAs.push(formatYoutubeLink(settings.youtube));
 
+    const siteBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": shopName,
-        "url": "https://velari.uz",
+        "url": siteBase,
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://velari.uz/search?q={search_term_string}",
+            "target": `${siteBase}/search?q={search_term_string}`,
             "query-input": "required name=search_term_string"
         }
     };
@@ -181,12 +183,12 @@ export default async function RootLayout({
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": shopName,
-        "url": "https://velari.uz",
-        "logo": "https://velari.uz/logo.png",
+        "url": siteBase,
+        "logo": `${siteBase}/logo.png`,
         "contactPoint": contactPoints,
         "sameAs": sameAs.length > 0 ? sameAs : [
-            "https://instagram.com/velari_uz_",
-            "https://t.me/VELARI_UZ_ADMIN"
+            "https://t.me/Eltron_uz_bot",
+            "https://t.me/Eltron_uz_admin_bot"
         ]
     };
 
@@ -196,8 +198,8 @@ export default async function RootLayout({
         "@context": "https://schema.org",
         "@type": "Store",
         "name": shopName,
-        "url": "https://velari.uz",
-        "image": "https://velari.uz/logo.png",
+        "url": siteBase,
+        "image": `${siteBase}/logo.png`,
         "telephone": phonesList,
         "address": {
             "@type": "PostalAddress",

@@ -20,6 +20,7 @@ import RecentlyViewed, { getRecentlyViewedIds } from "@/components/velari/Recent
 import PromoCountdown from "@/components/velari/PromoCountdown";
 import StoriesRow from "@/components/velari/StoriesRow";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
+import Logo from "@/components/Logo";
 import { videoPreWarmer } from "@/lib/videoPreWarmer";
 
 import type { Product, Category, Banner } from "@/types";
@@ -499,37 +500,46 @@ export default function HomeClient({
                 transition: "background 240ms ease",
                 padding: "12px 20px 12px",
             }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
                     <Link
-                        href={`/${language}/account`}
+                        href={`/${language}`}
                         onClick={() => videoPreWarmer.triggerHaptic("light")}
-                        className="ios-tap-feedback active:scale-[0.98] transition-transform duration-150 will-change-transform block"
+                        className="ios-tap-feedback active:scale-95 transition-transform duration-150 flex items-center will-change-transform"
                         style={{ textDecoration: "none" }}
                     >
-                        <div style={{ fontSize: 12, color: "#9AA29C", fontWeight: 500 }}>
-                            {language === "ru" ? "Доставка в" : "Yetkazib berish"}
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 2 }}>
-                            <MapPin size={14} color="#2D6E3E" />
-                            <span style={{ fontSize: 15, fontWeight: 600, color: "#0F1410", letterSpacing: -0.2 }}>
-                                {locationLabel}
-                            </span>
-                            <ChevronRight size={13} color="#9AA29C" />
-                        </div>
+                        <Logo size="sm" showSmile={false} />
                     </Link>
-                    <Link href={`/${language}/account`}
-                        onClick={() => videoPreWarmer.triggerHaptic("light")}
-                        className="ios-icon-tap active:scale-90 transition-transform duration-150 ease-out will-change-transform"
-                        style={{
-                            width: 40, height: 40, borderRadius: 20, background: "#fff",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            boxShadow: "0 2px 8px rgba(15,20,16,0.05)", position: "relative", flexShrink: 0,
-                            textDecoration: "none",
-                        }}
-                    >
-                        <User size={18} color="#0F1410" />
-                        {user && <div style={{ position: "absolute", top: 8, right: 9, width: 8, height: 8, borderRadius: 4, background: "#2D6E3E", border: "2px solid #FAFAF6" }} />}
-                    </Link>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <Link
+                            href={`/${language}/account`}
+                            onClick={() => videoPreWarmer.triggerHaptic("light")}
+                            className="ios-tap-feedback active:scale-[0.98] transition-transform duration-150 will-change-transform block"
+                            style={{ textDecoration: "none", textAlign: "right" }}
+                        >
+                            <div style={{ fontSize: 10, color: "#9AA29C", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                                {language === "ru" ? "Доставка" : "Yetkazish"}
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: 3, marginTop: 1 }}>
+                                <MapPin size={12} color="#D4AF37" />
+                                <span style={{ fontSize: 13, fontWeight: 700, color: "#0F1410", letterSpacing: -0.2 }}>
+                                    {locationLabel.split(',')[0]}
+                                </span>
+                            </div>
+                        </Link>
+                        <Link href={`/${language}/account`}
+                            onClick={() => videoPreWarmer.triggerHaptic("light")}
+                            className="ios-icon-tap active:scale-90 transition-transform duration-150 ease-out will-change-transform"
+                            style={{
+                                width: 38, height: 38, borderRadius: 19, background: "#fff",
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                boxShadow: "0 2px 8px rgba(15,20,16,0.05)", position: "relative", flexShrink: 0,
+                                textDecoration: "none", border: "1px solid rgba(15,20,16,0.06)"
+                            }}
+                        >
+                            <User size={18} color="#0F1410" />
+                            {user && <div style={{ position: "absolute", top: 7, right: 8, width: 8, height: 8, borderRadius: 4, background: "#D4AF37", border: "2px solid #FAFAF6" }} />}
+                        </Link>
+                    </div>
                 </div>
                 <form onSubmit={handleMobileSearch}>
                     <div
@@ -634,7 +644,7 @@ export default function HomeClient({
                                 <div style={{ position: "absolute", bottom: -28, right: -20, fontSize: 110, lineHeight: 1, opacity: 0.12 }}>🛍️</div>
                                 <div style={{ position: "relative" }}>
                                     <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#C99A2E" }}>
-                                        ✨ {language === "uz" ? "Velari Do'koni" : "Магазин Velari"}
+                                        ✨ {language === "uz" ? "Eltron Do'koni" : "Магазин Eltron"}
                                     </div>
                                     <div style={{ fontSize: 24, fontWeight: 900, color: "#0F1410", lineHeight: 1.2, marginTop: 8, letterSpacing: -0.5 }}>
                                         {language === "uz" ? "Shaxsiy kabinet" : "Личный кабинет"}

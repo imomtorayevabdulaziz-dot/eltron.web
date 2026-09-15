@@ -1,5 +1,5 @@
-# Velari.uz Robots.txt
-# Updated: 2026-04-19
+# Eltron Robots.txt
+# Updated: 2026-09-16
 
 User-agent: Googlebot
 Allow: /
@@ -8,11 +8,11 @@ Disallow: /api/
 User-agent: Yandex
 Allow: /
 Disallow: /api/
-Host: https://velari.uz
+Host: https://eltron-web.vercel.app
 
 User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://velari.uz/sitemap.xml
-Sitemap: https://velari.uz/image-sitemap.xml
+Sitemap: https://eltron-web.vercel.app/sitemap.xml
+Sitemap: https://eltron-web.vercel.app/image-sitemap.xml

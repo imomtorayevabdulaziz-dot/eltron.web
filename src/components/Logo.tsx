@@ -10,6 +10,22 @@ interface LogoProps {
 }
 
 export default function Logo({ className = "", size = "md", dark = false }: LogoProps) {
+    const sizeClasses = {
+        xs: "text-lg",
+        sm: "text-xl",
+        md: "text-2xl",
+        lg: "text-4xl",
+        xl: "text-[140px]"
+    };
+
+    const dotSizes = {
+        xs: "text-sm",
+        sm: "text-base",
+        md: "text-xl",
+        lg: "text-3xl",
+        xl: "text-[100px]"
+    };
+
     const imgSizes = {
         xs: "h-6 w-6",
         sm: "h-7 w-7",
