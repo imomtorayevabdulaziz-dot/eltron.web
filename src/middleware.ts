@@ -27,7 +27,15 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export async function middleware(request: NextRequest) {
-    const { pathname } = request.nextUrl;
+    // 0. Clean /[lang]/api/... into /api/...
+    if (pathname.includes('/api/')) {
+        const apiIdx = pathname.indexOf('/api/');
+        if (apiIdx > 0) {
+            const url = new URL(pathname.slice(apiIdx), request.url);
+            url.search = request.nextUrl.search;
+            return NextResponse.redirect(url);
+        }
+    }
 
     // 1. Bypass static & public files
     if (pathname.match(/\.(.*)$/) && !pathname.includes('/api/')) {
