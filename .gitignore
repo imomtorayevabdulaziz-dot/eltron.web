@@ -60,3 +60,22 @@ bot.py
 /public/swe-worker-*.js.map
 /public/workbox-*.js
 /public/workbox-*.js.map
+
+# Flutter & local apps
+flutter_sdk/
+velari_app/
+marketplace-collector/downloads/
+marketplace-collector/data/
+marketplace-collector/scratch/
+vgr_mahsulotlari/
+scratch/
+
+# AI Video & Audio outputs (NEVER commit heavy binary media)
+*.mp4
+*.wav
+*.log
+velari_ai_audio/temp_auto_render/
+velari_ai_audio/ready_queue/
+__pycache__/
+*.pyc
+

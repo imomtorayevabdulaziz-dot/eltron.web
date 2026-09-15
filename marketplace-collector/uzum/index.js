@@ -3,6 +3,7 @@ const UzumSearch = require('./search');
 const UzumProduct = require('./product');
 const UzumCategory = require('./category');
 const UzumCities = require('./cities');
+const UzumSeller = require('./seller');
 
 class UzumSDK {
   constructor(options = {}) {
@@ -11,34 +12,45 @@ class UzumSDK {
     this.product = new UzumProduct(this.client);
     this.category = new UzumCategory(this.client);
     this.cities = new UzumCities(this.client);
+    this.seller = new UzumSeller(this.client);
   }
 
   /**
-   * Tezkor qidiruv (Search helper)
+   * Qidiruv
    */
   async searchProducts(query, options = {}) {
     return this.search.search(query, options);
   }
 
   /**
-   * Ikki tilda qidiruv (Bilingual search helper)
+   * Ikki tilda qidiruv
    */
   async searchBilingual(query, options = {}) {
     return this.search.searchBilingual(query, options);
   }
 
   /**
-   * Mahsulot to'liq ma'lumotlarini olish
+   * Mahsulot kartasi
    */
   async getProduct(productId, lang = 'uz-UZ') {
     return this.product.getDetails(productId, lang);
   }
 
   /**
-   * Kategoriya daraxti
+   * Kategoriyalar
    */
   async getCategories(text = '', lang = 'uz-UZ') {
     return this.category.getCategoryTree(text, lang);
+  }
+
+  /**
+   * Do'kondagi barcha mahsulotlarni skraping qilish
+   */
+  async scrapeShop(shopSlugOrId, bilingual = true) {
+    if (bilingual) {
+      return this.seller.getShopProductsBilingual(shopSlugOrId);
+    }
+    return this.seller.getAllShopProducts(shopSlugOrId);
   }
 }
 
@@ -49,5 +61,6 @@ module.exports = {
   UzumProduct,
   UzumCategory,
   UzumCities,
+  UzumSeller,
   default: UzumSDK
 };
