@@ -15,7 +15,7 @@ export default function VelariLogo({ size = 32, dark = false, style = {} }: Vela
       <img
         src="/logo.png"
         alt="Eltron"
-        style={{ width: size, height: size, objectFit: "contain", borderRadius: Math.round(size * 0.25) }}
+        style={{ width: size, height: size, objectFit: "contain" }}
       />
       <span style={{
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",

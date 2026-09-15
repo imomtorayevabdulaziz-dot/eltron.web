@@ -41,7 +41,7 @@ export default function Logo({ className = "", size = "md", dark = false }: Logo
             <img
                 src="/logo.png"
                 alt="Eltron"
-                className={`${imgSizes[size]} object-contain rounded-xl shadow-xs`}
+                className={`${imgSizes[size]} object-contain shrink-0 select-none`}
             />
             <span className={`font-['Helvetica_Neue',_Helvetica,_Arial,_sans-serif] font-black tracking-tight leading-none ${textColor} flex items-baseline`}>
                 <span className={sizeClasses[size]}>ELTRON</span>
