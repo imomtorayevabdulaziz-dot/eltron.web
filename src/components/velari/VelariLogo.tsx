@@ -20,7 +20,7 @@ export default function VelariLogo({ size = 32, dark = false, style = {} }: Vela
         color: fg,
         lineHeight: 1,
       }}>
-        VELARI<span style={{ color: GREEN }}>.</span>
+        ELTRON<span style={{ color: "#D4AF37" }}>.</span>
       </span>
     </div>
   );

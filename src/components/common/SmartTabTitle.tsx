@@ -30,8 +30,8 @@ export default function SmartTabTitle() {
                 originalTitleRef.current = document.title;
 
                 let message = cartCount > 0
-                    ? `🛒 Savatingizda ${cartCount} ta mahsulot qoldi! Xaridni yakunlang — Velari.uz — `
-                    : `🎁 Yangi chegirmalar va sovg'alarni o'tkazib yubormang! — Velari.uz — `;
+                    ? `🛒 Savatingizda ${cartCount} ta mahsulot qoldi! Xaridni yakunlang — Eltron — `
+                    : `🎁 Yangi chegirmalar va sovg'alarni o'tkazib yubormang! — Eltron — `;
 
                 // Yuguruvchi satrni boshlaymiz
                 let currentText = message;

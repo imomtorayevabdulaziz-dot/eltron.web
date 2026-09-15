@@ -35,7 +35,7 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
                 <img 
                     src="/icons/icon-192x192.png" 
-                    alt="Velari" 
+                    alt="Eltron" 
                     style={{
                         width: 80, height: 80, borderRadius: "50%",
                         boxShadow: "0 8px 32px rgba(15,20,16,0.08)",
@@ -46,7 +46,7 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
                     fontSize: 28, fontWeight: 900, letterSpacing: -1.5, color: "#0F1410",
                     animation: "velari-slide-in 400ms cubic-bezier(0.22,1,0.36,1) 400ms both",
                 }}>
-                    VELARI<span style={{ color: "#2D6E3E" }}>.</span>
+                    ELTRON<span style={{ color: "#D4AF37" }}>.</span>
                 </div>
             </div>
 

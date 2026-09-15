@@ -49,6 +49,29 @@ async function sendTelegramMessage(chatId: number | string, text: string, replyM
     });
 }
 
+async function sendTelegramPhoto(chatId: number | string, photoUrl: string, caption: string, replyMarkup?: any) {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || SITE_URL;
+    try {
+        const res = await fetch(`${TELEGRAM_API}/sendPhoto`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: chatId,
+                photo: photoUrl,
+                caption,
+                reply_markup: replyMarkup !== undefined ? replyMarkup : getMainKeyboard(siteUrl),
+                parse_mode: "HTML"
+            }),
+        });
+        const data = await res.json();
+        if (!data.ok) {
+            await sendTelegramMessage(chatId, caption, replyMarkup);
+        }
+    } catch {
+        await sendTelegramMessage(chatId, caption, replyMarkup);
+    }
+}
+
 async function answerCallbackQuery(callbackQueryId: string, text?: string) {
     await fetch(`${TELEGRAM_API}/answerCallbackQuery`, {
         method: "POST",
@@ -240,6 +263,8 @@ export async function POST(req: Request) {
 
             await supabaseAdmin.from("bot_sessions").delete().eq("chat_id", chatId.toString());
 
+            const bannerUrl = `${siteUrl}/banners/eltron-hero.png`;
+
             // Agar saytdagi ro'yxatdan o'tish tugmasi orqali kelgan bo'lsa
             if (payload === "register" || nextPath) {
                 await supabaseAdmin.from("bot_sessions").upsert({
@@ -249,7 +274,8 @@ export async function POST(req: Request) {
                     updated_at: new Date().toISOString(),
                 });
 
-                await sendTelegramMessage(chatId,
+                await sendTelegramPhoto(chatId,
+                    bannerUrl,
                     `Assalomu alaykum, <b>${chat.first_name || 'Mijoz'}</b>!\n\n` +
                     `<b>Eltron</b> do'koniga xush kelibsiz! ✨\n\n` +
                     `Saytga kirish yoki yangi akkaunt ochish uchun quyidagi <b>"📱 Kontaktni yuborish"</b> tugmasini bosing:`,
@@ -264,7 +290,8 @@ export async function POST(req: Request) {
                 return NextResponse.json({ ok: true });
             }
 
-            await sendTelegramMessage(chatId,
+            await sendTelegramPhoto(chatId,
+                bannerUrl,
                 `Assalomu alaykum, <b>${chat.first_name || 'Mijoz'}</b>!\n\n` +
                 `<b>Eltron</b> rasmiy do'koni va yordamchi botiga xush kelibsiz! ✨\n\n` +
                 `Saytimizdan qulay xarid qilish uchun quyidagi <b>"🛍 Do'konni ochish"</b> tugmasini bosing yoki menyudan foydalaning:`,

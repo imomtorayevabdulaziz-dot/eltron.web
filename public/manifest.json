@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Velari Market",
-  "short_name": "Velari",
-  "description": "Premium elektronika do'koni",
+  "name": "Eltron",
+  "short_name": "Eltron",
+  "description": "Eltron — Premium elektronika va gadjetlar do'koni",
   "start_url": "/?utm_source=pwa",
   "display": "standalone",
   "background_color": "#FAFAF6",

@@ -89,7 +89,7 @@ export default function PWAInstallPrompt() {
                                 <Logo size="sm" showSmile={false} />
                             </div>
                             <div>
-                                <p className="text-xs font-bold text-[#111612] leading-none">Velari Market</p>
+                                <p className="text-xs font-bold text-[#111612] leading-none">Eltron</p>
                                 <p className="text-[11px] text-[rgba(15,20,16,0.6)] mt-0.5 font-medium">Tez va qulay ilovamizni o&apos;rnating</p>
                             </div>
                         </div>

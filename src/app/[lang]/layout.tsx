@@ -14,18 +14,18 @@ const inter = Inter({
 
 export const metadata = {
     title: {
-        default: "Velari | Zamonaviy Texnologiyalar va Gadjetlar Dunyosi",
-        template: "%s | Velari"
+        default: "Eltron | Zamonaviy Texnologiyalar va Gadjetlar Dunyosi",
+        template: "%s | Eltron"
     },
-    description: "Premium gadjetlar va elektronika do'koni. Apple, Samsung, Xiaomi mahsulotlari hamyonbop narxlarda. Muddatli to'lov, rasmiy kafolat va Toshkent bo'ylab tekin yetkazib berish.",
+    description: "Eltron — Premium gadjetlar va elektronika do'koni. Apple, Samsung, Xiaomi mahsulotlari hamyonbop narxlarda. Muddatli to'lov, rasmiy kafolat va yetkazib berish.",
     keywords: [
-        "Velari", "velari.uz", "elektronika do'koni", "gadjetlar", "iphone narxi", "samsung narxi", 
-        "Toshkent", "O'zbekistan", "muddatli to'lov", "bo'lib to'lash", "kreditga telefon", 
+        "Eltron", "eltron.uz", "elektronika do'koni", "gadjetlar", "iphone narxi", "samsung narxi", 
+        "Toshkent", "O'zbekiston", "muddatli to'lov", "bo'lib to'lash", "kreditga telefon", 
         "online shop", "internet do'kon", "arzon narxlar", "kafolatli texnika"
     ],
-    authors: [{ name: "Velari Team" }],
-    creator: "Velari",
-    publisher: "Velari",
+    authors: [{ name: "Eltron Team" }],
+    creator: "Eltron",
+    publisher: "Eltron",
     formatDetection: {
         email: false,
         address: false,
@@ -43,11 +43,11 @@ export const metadata = {
         ],
         shortcut: "/favicon.ico",
     },
-    metadataBase: new URL("https://velari.uz"),
+    metadataBase: new URL("https://eltron-web.vercel.app"),
     alternates: {
         languages: {
-            'uz-UZ': 'https://velari.uz/uz',
-            'ru-RU': 'https://velari.uz/ru',
+            'uz-UZ': 'https://eltron-web.vercel.app/uz',
+            'ru-RU': 'https://eltron-web.vercel.app/ru',
         },
     },
     robots: {
@@ -62,16 +62,16 @@ export const metadata = {
         },
     },
     openGraph: {
-        title: "Velari | Zamonaviy Texnologiyalar va Gadjetlar Dunyosi",
-        description: "Premium tech store in Uzbekistan. Global brands, official warranty, and fast delivery. Buy iPhones, Samsung and Xiaomi with installments.",
-        url: "https://velari.uz",
-        siteName: "Velari",
+        title: "Eltron | Zamonaviy Texnologiyalar va Gadjetlar Dunyosi",
+        description: "Eltron — Premium tech store in Uzbekistan. Global brands, official warranty, and fast delivery.",
+        url: "https://eltron-web.vercel.app",
+        siteName: "Eltron",
         images: [
             {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "Velari Premium Electronics Store",
+                alt: "Eltron Premium Electronics Store",
             },
         ],
         locale: "uz_UZ",
@@ -79,7 +79,7 @@ export const metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Velari | Global Electronics",
+        title: "Eltron | Global Electronics",
         description: "Premium tech store in Uzbekistan. Global brands, official warranty.",
         images: ["/og-image.png"],
     },
@@ -87,7 +87,7 @@ export const metadata = {
     appleWebApp: {
         capable: true,
         statusBarStyle: "default",
-        title: "Velari",
+        title: "Eltron",
     },
     verification: {
         // Bir nechta Google Search Console mulki/egasi tasdig'i — massiv => bir nechta meta-teg.

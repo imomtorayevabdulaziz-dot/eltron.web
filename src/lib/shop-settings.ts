@@ -17,11 +17,11 @@ export interface ShopSettings {
 }
 
 export const DEFAULT_SHOP_SETTINGS: ShopSettings = {
-    name: "Velari",
+    name: "Eltron",
     phone: "+998 95 082 11 88",
     secondary_phone: "+998 20 014 49 89",
-    telegram_admin: "@VELARI_UZ_ADMIN",
-    telegram_channel: "https://t.me/velariuz",
+    telegram_admin: "@Eltron_uz_admin_bot",
+    telegram_channel: "https://t.me/Eltron_uz_bot",
     instagram: "velari_uz_",
     facebook: "https://facebook.com/velari.uz",
     youtube: "https://youtube.com/@velariuz",
