@@ -157,7 +157,8 @@ export async function sendCartReminder(phone: string, items: any[], customNote?:
         text += `🏃‍♂️ <i>Mahsulotlar soni cheklangan, ularni hoziroq rasmiylashtirib oling!</i>`;
 
         // Create one-time secure magic login token (cross-device auto-login)
-        let cartUrl = `https://velari.uz/uz/cart?ref=tg_reminder`;
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
+        let cartUrl = `${baseUrl}/uz/cart?ref=tg_reminder`;
         try {
             const loginToken = typeof crypto !== 'undefined' && crypto.randomBytes 
                 ? crypto.randomBytes(24).toString('hex') 
@@ -173,7 +174,7 @@ export async function sendCartReminder(phone: string, items: any[], customNote?:
             }]);
 
             if (!ltErr) {
-                cartUrl = `https://velari.uz/uz/auth?lt=${loginToken}`;
+                cartUrl = `${baseUrl}/uz/auth?lt=${loginToken}`;
             }
         } catch (ltErr) {
             console.warn("Magic login token generation error:", ltErr);

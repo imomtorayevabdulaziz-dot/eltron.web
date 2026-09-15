@@ -368,24 +368,45 @@ export async function POST(req: Request) {
                     return NextResponse.json({ ok: true });
                 }
 
-                const { data: existingUser } = await supabaseAdmin.from("users").select("id").eq("phone", session.phone).single();
-                await supabaseAdmin.from("users").upsert({
-                    id: existingUser?.id || crypto.randomUUID(),
+                // If another user had this telegram_id, detach it first to satisfy unique constraint
+                await supabaseAdmin
+                    .from("users")
+                    .update({ telegram_id: null })
+                    .eq("telegram_id", chatId.toString())
+                    .neq("phone", session.phone);
+
+                const { data: existingUser } = await supabaseAdmin.from("users").select("id").eq("phone", session.phone).maybeSingle();
+                const userId = existingUser?.id || crypto.randomUUID();
+
+                const { error: userUpsertError } = await supabaseAdmin.from("users").upsert({
+                    id: userId,
                     phone: session.phone,
                     password: hashPassword(text),
                     telegram_id: chatId.toString(),
                 }, { onConflict: 'phone' });
 
+                if (userUpsertError) {
+                    console.error("User upsert error:", userUpsertError);
+                    await sendTelegramMessage(chatId, "Kechirasiz, ro'yxatdan o'tishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring:", CANCEL_KEYBOARD);
+                    return NextResponse.json({ ok: true });
+                }
+
                 await animateAndDeletePasswordMessage(chatId, session.pwd_msg_id);
                 await animateAndDeletePasswordMessage(chatId, message_id);
 
                 const loginToken = crypto.randomBytes(24).toString("hex");
-                await supabaseAdmin.from("login_tokens").insert({
+                const { error: tokenErr } = await supabaseAdmin.from("login_tokens").insert({
                     token: loginToken,
                     phone: session.phone,
                     next_path: session.next_path || null,
                     expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
                 });
+
+                if (tokenErr) {
+                    console.error("Login token insert error:", tokenErr);
+                    await sendTelegramMessage(chatId, "Kechirasiz, kirish tokeni yaratishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring:", CANCEL_KEYBOARD);
+                    return NextResponse.json({ ok: true });
+                }
 
                 const returnUrl = `${siteUrl}/uz/auth?lt=${loginToken}`;
 
