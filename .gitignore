@@ -24,58 +24,14 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+.env.production
+.env.development
+!.env.example
 
 # vercel
 .vercel
 
-# claude code worktrees
-.claude/worktrees/
-# claude local settings — contains secrets, NEVER commit
-.claude/settings.local.json
-
-# big local artifacts
-design_handoff_phase1/
-velari sayt skrinshot/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# binaries and folders
-node-v20.12.2-win-x64/
-node.zip
-ngrok.exe
-ngrok_v3.exe
-
-# sensitive files — NEVER commit these
-firebase-adminsdk.json
-*.session
-scan_results.json
-bot.py
-
-# PWA generated files
-/public/sw.js
-/public/sw.js.map
-/public/swe-worker-*.js
-/public/swe-worker-*.js.map
-/public/workbox-*.js
-/public/workbox-*.js.map
-
-# Flutter & local apps
-flutter_sdk/
-velari_app/
-marketplace-collector/downloads/
-marketplace-collector/data/
-marketplace-collector/scratch/
-vgr_mahsulotlari/
-scratch/
-
-# AI Video & Audio outputs (NEVER commit heavy binary media)
-*.mp4
-*.wav
-*.log
-velari_ai_audio/temp_auto_render/
-velari_ai_audio/ready_queue/
-__pycache__/
-*.pyc
-

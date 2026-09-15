@@ -18,7 +18,7 @@ function PaymentContent() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [loadingOrder, setLoadingOrder] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [paymentMethod, setPaymentMethod] = useState<"click" | "cash">("click");
+    const [paymentMethod, setPaymentMethod] = useState<"click" | "cash">("cash");
 
     useEffect(() => {
         if (orderId) {
@@ -161,27 +161,30 @@ function PaymentContent() {
             </div>
 
             <div className="space-y-4 mb-8">
-                {/* Click Option */}
+                {/* Click Option (Vaqtincha nofaol) */}
                 <div
-                    onClick={() => setPaymentMethod("click")}
-                    className={`p-6 border-2 rounded-[32px] cursor-pointer transition-[border-color,background-color,box-shadow] duration-150 ${paymentMethod === "click" ? "border-[#00a1ff] bg-[#00a1ff]/5 shadow-xl shadow-[#00a1ff]/10" : "border-gray-100"
-                        }`}
+                    className="p-6 border-2 rounded-[32px] opacity-50 cursor-not-allowed border-gray-200 bg-gray-50/50"
                 >
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-4">
-                            <div className={`p-3 rounded-2xl ${paymentMethod === "click" ? "bg-[#00a1ff] text-white" : "bg-gray-100"}`}>
+                            <div className="p-3 rounded-2xl bg-gray-200 text-gray-400">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.43 4 16.05 4 12C4 7.95 7.05 4.57 11 4.07V19.93ZM13 4.07C16.95 4.57 20 7.95 20 12C20 16.05 16.95 19.43 13 19.93V4.07Z" fill="currentColor" />
                                 </svg>
                             </div>
-                            <span className={`font-black text-sm italic uppercase tracking-tighter ${paymentMethod === "click" ? "text-[#00a1ff]" : ""}`}>
-                                {language === 'uz' ? 'Click orqali to\'lash' : 'Оплата через Click'}
-                            </span>
+                            <div>
+                                <span className="font-black text-sm italic uppercase tracking-tighter text-gray-400">
+                                    {language === 'uz' ? 'Click orqali to\'lash' : 'Оплата через Click'}
+                                </span>
+                                <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold uppercase">
+                                    {language === 'uz' ? 'Tez kunda' : 'Скоро'}
+                                </span>
+                            </div>
                         </div>
-                        <input type="radio" checked={paymentMethod === "click"} readOnly className="accent-[#00a1ff] w-5 h-5" />
+                        <input type="radio" checked={false} disabled className="accent-[#00a1ff] w-5 h-5 cursor-not-allowed" />
                     </div>
                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest ml-14">
-                        {language === 'uz' ? 'Avtomatlashtirilgan Click portaliga o\'tish' : 'Переход на портал Click'}
+                        {language === 'uz' ? 'Ushbu to\'lov usuli vaqtincha faolsizlantirilgan' : 'Этот способ оплаты временно отключен'}
                     </p>
                 </div>
 
