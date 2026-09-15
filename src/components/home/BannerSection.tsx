@@ -112,7 +112,7 @@ export const BannerSection = ({
         position: "relative",
         overflow: "hidden",
         borderRadius,
-        background: "#f3f4f6",
+        background: "transparent",
         ...(aspectRatio ? { aspectRatio } : { height: heightPx ? `${heightPx}px` : "100%" }),
     };
 
