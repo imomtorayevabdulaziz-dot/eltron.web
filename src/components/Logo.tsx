@@ -27,11 +27,11 @@ export default function Logo({ className = "", size = "md", dark = false }: Logo
     };
 
     const imgSizes = {
-        xs: "h-6 w-6",
-        sm: "h-7 w-7",
-        md: "h-9 w-9",
-        lg: "h-12 w-12",
-        xl: "h-28 w-28"
+        xs: "h-7 w-7",
+        sm: "h-8 w-8",
+        md: "h-11 w-11",
+        lg: "h-14 w-14",
+        xl: "h-32 w-32"
     };
 
     const textColor = dark ? "text-white" : "text-[#0F1410]";
