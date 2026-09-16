@@ -119,61 +119,47 @@ export default function FeaturedCategories({ language, initial }: { language: "u
 
     return (
         <>
-            {/* ── MOBIL (Apple 2-card showcase) ── */}
-            <div className="md:hidden" style={{ padding: "16px 20px 0" }}>
-                <HeaderRow fontSize={18} mb={14} />
+            {/* ── MOBIL (Yonma-yon, kalt, yoniga cho'zilgan, yumaloq burchakli tugmalar) ── */}
+            <div className="md:hidden" style={{ padding: "14px 20px 0" }}>
+                <HeaderRow fontSize={18} mb={12} />
                 {categories.length === 2 ? (
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-2.5">
                         {categories.map((cat) => {
                             const name = language === "uz" ? (cat.name_uz || cat.name) : (cat.name_ru || cat.name);
-                            const subtitle = cat.id === 'telefon-aksessuarlari'
-                                ? (language === "uz" ? "Zaryadka, kabel, chexol..." : "Зарядки, кабели, чехлы...")
-                                : (language === "uz" ? "Sichqoncha, klaviatura..." : "Мыши, клавиатуры...");
                             return (
                                 <Link
                                     key={cat.id}
                                     href={`/${language}/catalog/${getCategorySlug(cat, language)}`}
                                     onClick={() => videoPreWarmer.triggerHaptic("light")}
-                                    className="ios-tap-feedback active:scale-[0.97] transition-all duration-200 select-none will-change-transform flex flex-col justify-between p-3.5 rounded-2xl relative overflow-hidden"
+                                    className="ios-tap-feedback active:scale-[0.96] transition-all duration-150 select-none will-change-transform flex items-center justify-between px-3 py-2.5 rounded-full relative overflow-hidden group shadow-sm"
                                     style={{
-                                        background: "linear-gradient(145deg, #FFFFFF 0%, #FAF6EE 100%)",
-                                        border: "1px solid rgba(212,175,55,0.24)",
-                                        boxShadow: "0 4px 18px rgba(212,175,55,0.08)",
+                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FDFBF7 100%)",
+                                        border: "1.5px solid rgba(230,184,62,0.45)",
+                                        boxShadow: "0 2px 10px rgba(230,184,62,0.12)",
                                         textDecoration: "none",
-                                        minHeight: 146,
+                                        height: 48,
                                     }}
                                 >
-                                    <div className="flex items-start justify-between w-full">
+                                    <div className="flex items-center gap-2 min-w-0 flex-1">
                                         <div
                                             style={{
-                                                width: 52, height: 52, borderRadius: 16,
+                                                width: 28, height: 28,
                                                 display: "flex", alignItems: "center", justifyContent: "center",
-                                                overflow: "hidden",
+                                                overflow: "hidden", flexShrink: 0,
                                             }}
                                         >
                                             {cat.image ? (
                                                 <img src={getOptimizedImageUrl(cat.image_meta, cat.image, 'xs')} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                                             ) : (cat.icon || "📦")}
                                         </div>
-                                        <div style={{
-                                            fontSize: 10, fontWeight: 700, color: "#9E7719",
-                                            background: "rgba(212,175,55,0.12)", padding: "3px 7px", borderRadius: 8,
+                                        <span style={{
+                                            fontSize: 11.5, fontWeight: 700, color: "#0F1410", letterSpacing: -0.2,
+                                            whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
                                         }}>
-                                            8 {language === "uz" ? "toifa" : "категорий"}
-                                        </div>
-                                    </div>
-                                    <div className="mt-2.5">
-                                        <h3 style={{ fontSize: 13.5, fontWeight: 800, color: "#0F1410", lineHeight: 1.25, margin: 0 }}>
                                             {name}
-                                        </h3>
-                                        <p style={{ fontSize: 10.5, color: "#7A7265", margin: "4px 0 0", lineHeight: 1.2 }}>
-                                            {subtitle}
-                                        </p>
+                                        </span>
                                     </div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: "#B8860B", display: "flex", alignItems: "center", gap: 3, marginTop: 8 }}>
-                                        <span>{language === "uz" ? "Tanlash" : "Выбрать"}</span>
-                                        <ChevronRight size={13} color="#B8860B" />
-                                    </div>
+                                    <ChevronRight size={14} color="#E6B83E" className="shrink-0 ml-1 group-hover:translate-x-0.5 transition-transform" />
                                 </Link>
                             );
                         })}
@@ -228,63 +214,56 @@ export default function FeaturedCategories({ language, initial }: { language: "u
                 )}
             </div>
 
-            {/* ── DESKTOP (Apple 2-card showcase) ── */}
-            <div className="hidden md:block px-10 mt-10">
-                <HeaderRow fontSize={26} mb={20} />
+            {/* ── DESKTOP (Yonma-yon, kalt, yoniga cho'zilgan, yumaloq burchakli tugmalar) ── */}
+            <div className="hidden md:block px-10 mt-8">
+                <HeaderRow fontSize={22} mb={14} />
                 {categories.length === 2 ? (
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-5">
                         {categories.map((cat) => {
                             const name = language === "uz" ? (cat.name_uz || cat.name) : (cat.name_ru || cat.name);
-                            const subtitle = cat.id === 'telefon-aksessuarlari'
-                                ? (language === "uz" ? "Zaryadlovchi qurilmalar, kabellar, naushniklar, chexollar, himoya oynalari va quvvatlagichlar" : "Зарядные устройства, кабели, наушники, чехлы, защитные стекла и повербанки")
-                                : (language === "uz" ? "Sichqonchalar, mexanik klaviaturalar, o'yin kovriklari, USB-xablar va xotira qurilmalari" : "Мыши, механические клавиатуры, коврики, USB-хабы и накопители");
                             return (
                                 <Link
                                     key={cat.id}
                                     href={`/${language}/catalog/${getCategorySlug(cat, language)}`}
-                                    className="group ios-tap-feedback active:scale-[0.99] transition-all duration-200 will-change-transform flex items-center justify-between p-6 rounded-[28px] border border-[#D4AF37]/25 hover:border-[#D4AF37]/50 hover:shadow-xl hover:-translate-y-1"
+                                    className="group ios-tap-feedback active:scale-[0.98] transition-all duration-200 will-change-transform flex items-center justify-between px-6 py-3 rounded-full border border-[#E6B83E]/45 hover:border-[#E6B83E] hover:shadow-lg shadow-sm"
                                     style={{
-                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%)",
-                                        boxShadow: "0 8px 32px rgba(212,175,55,0.08)",
+                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FDFBF7 100%)",
                                         textDecoration: "none",
+                                        height: 54,
                                     }}
                                 >
-                                    <div className="flex items-center gap-5">
+                                    <div className="flex items-center gap-3.5 min-w-0">
                                         <div
                                             style={{
-                                                width: 80, height: 80, borderRadius: 24,
+                                                width: 34, height: 34,
                                                 display: "flex", alignItems: "center", justifyContent: "center",
                                                 overflow: "hidden", flexShrink: 0,
                                             }}
-                                            className="group-hover:scale-105 transition-transform duration-200"
+                                            className="group-hover:scale-110 transition-transform duration-200"
                                         >
                                             {cat.image ? (
                                                 <img src={getOptimizedImageUrl(cat.image_meta, cat.image, 'md')} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                                             ) : (cat.icon || "📦")}
                                         </div>
-                                        <div>
-                                            <div style={{ fontSize: 11, fontWeight: 800, color: "#9E7719", textTransform: "uppercase", letterSpacing: 0.8 }}>
-                                                ✨ {language === "uz" ? "8 ta toifa mavjud" : "8 категорий доступно"}
-                                            </div>
-                                            <h3 style={{ fontSize: 20, fontWeight: 800, color: "#0F1410", letterSpacing: -0.3, margin: "3px 0 0" }}>
+                                        <div className="flex items-center gap-2.5">
+                                            <span style={{ fontSize: 15, fontWeight: 800, color: "#0F1410", letterSpacing: -0.2 }}>
                                                 {name}
-                                            </h3>
-                                            <p style={{ fontSize: 13, color: "#7A7265", margin: "6px 0 0", maxWidth: 360, lineHeight: 1.35 }}>
-                                                {subtitle}
-                                            </p>
+                                            </span>
+                                            <span style={{ fontSize: 11, fontWeight: 700, color: "#BC8D1A", background: "rgba(230,184,62,0.12)", padding: "2px 8px", borderRadius: 999 }}>
+                                                8 {language === "uz" ? "toifa" : "категорий"}
+                                            </span>
                                         </div>
                                     </div>
                                     <div
                                         style={{
-                                            width: 44, height: 44, borderRadius: 22,
-                                            background: "#0F1410", color: "#D4AF37",
+                                            width: 30, height: 30, borderRadius: 15,
+                                            background: "rgba(230,184,62,0.15)",
                                             display: "flex", alignItems: "center", justifyContent: "center",
-                                            flexShrink: 0, marginLeft: 16,
-                                            boxShadow: "0 4px 14px rgba(15,20,16,0.15)",
+                                            flexShrink: 0,
                                         }}
-                                        className="group-hover:translate-x-1 transition-transform duration-200"
+                                        className="group-hover:bg-[#0F1410] transition-colors duration-200"
                                     >
-                                        <ChevronRight size={22} color="#D4AF37" />
+                                        <ChevronRight size={16} color="#BC8D1A" className="group-hover:text-[#FFF6BA] group-hover:translate-x-0.5 transition-all duration-200" />
                                     </div>
                                 </Link>
                             );

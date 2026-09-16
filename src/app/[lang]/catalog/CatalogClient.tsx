@@ -497,35 +497,54 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                     </div>
                 )}
 
-                {/* 2 Main category entry cards when on 'Hammasi' */}
+                {/* 2 Main category entry buttons (yonma-yon, kalt, yoniga cho'zilgan, ramkalari qirrali bo'lmagan tugma) */}
                 {mainCat === "all" && (
-                    <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="grid grid-cols-2 gap-2.5 md:gap-4 mb-4">
                         {mainCategories.map(c => {
                             const name = catName(c);
-                            const subtitle = c.id === 'telefon-aksessuarlari'
-                                ? (language === "uz" ? "8 ta toifa · Zaryadka, kabel..." : "8 категорий · Зарядки, чехлы...")
-                                : (language === "uz" ? "8 ta toifa · Sichqoncha..." : "8 категорий · Мыши, клавиатуры...");
                             return (
                                 <button
                                     key={c.id}
+                                    type="button"
                                     onClick={() => {
                                         videoPreWarmer.triggerHaptic("selection");
                                         setMainCat(c.id);
                                         setSubCat("all");
                                     }}
-                                    className="ios-tap-feedback active:scale-[0.98] p-3 md:p-4 rounded-2xl text-left border border-[#D4AF37]/25 flex items-center gap-3 transition-all duration-150 hover:border-[#D4AF37]/50 hover:shadow-md"
+                                    className="group ios-tap-feedback active:scale-[0.97] transition-all duration-150 flex items-center justify-between px-3 md:px-5 py-2 md:py-2.5 rounded-full relative overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
                                     style={{
-                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%)",
+                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FDFBF7 100%)",
+                                        border: "1.5px solid rgba(230,184,62,0.45)",
+                                        boxShadow: "0 2px 10px rgba(230,184,62,0.10)",
+                                        height: 48,
                                     }}
                                 >
-                                    {c.image && (
-                                        <img src={c.image} alt={name} className="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0" />
-                                    )}
-                                    <div className="min-w-0 flex-1">
-                                        <div className="text-xs md:text-sm font-bold text-[#0F1410] truncate">{name}</div>
-                                        <div className="text-[10px] md:text-xs text-[#9E7719] font-medium truncate">{subtitle}</div>
+                                    <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                                        {c.image && (
+                                            <div
+                                                style={{
+                                                    width: 28, height: 28,
+                                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                                    overflow: "hidden", flexShrink: 0,
+                                                }}
+                                                className="group-hover:scale-110 transition-transform duration-200"
+                                            >
+                                                <img src={c.image} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-2 min-w-0">
+                                            <span style={{
+                                                fontSize: 12, fontWeight: 700, color: "#0F1410", letterSpacing: -0.2,
+                                                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                                            }} className="md:text-[14px]">
+                                                {name}
+                                            </span>
+                                            <span className="hidden md:inline-block text-[11px] font-bold text-[#BC8D1A] bg-[#E6B83E]/12 px-2 py-0.5 rounded-full shrink-0">
+                                                8 {language === "uz" ? "toifa" : "категорий"}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <ChevronRight size={16} className="text-[#D4AF37] shrink-0" />
+                                    <ChevronRight size={15} color="#BC8D1A" className="shrink-0 ml-1 group-hover:translate-x-0.5 transition-transform" />
                                 </button>
                             );
                         })}
