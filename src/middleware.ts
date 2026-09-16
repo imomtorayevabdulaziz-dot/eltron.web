@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { i18n } from '@/lib/i18n-config';
-import { match as matchLocale } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
 
 /**
  * Secure JWT Verification for Edge
@@ -10,20 +8,24 @@ import Negotiator from 'negotiator';
 import { verifyJwt } from '@/lib/jwt-utils';
 
 /**
- * Locale detection
+ * Locale detection:
+ * Boshlang'ich holatda va har doim HAR BIR tashrif buyuruvchi (sayt, telefon, Telegram WebApp)
+ * uchun tizim O'ZBEKCHA ('uz') tilida ochiladi.
+ * Faqatgina foydalanuvchi o'zi hohlab rus tilini tanlaganda (cookie 'eltron_locale'='ru' yoki 'NEXT_LOCALE'='ru')
+ * rus tiliga o'tkaziladi.
  */
-function getLocale(request: NextRequest): string | undefined {
-    const negotiatorHeaders: Record<string, string> = {};
-    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-    const locales: string[] = i18n.locales as any;
-    let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-
-    try {
-        return matchLocale(languages, locales, i18n.defaultLocale);
-    } catch (e) {
-        return i18n.defaultLocale;
+function getLocale(request: NextRequest): string {
+    const cookieLocale = request.cookies.get('eltron_locale')?.value || request.cookies.get('NEXT_LOCALE')?.value;
+    if (cookieLocale === 'ru') {
+        return 'ru';
     }
+    if (cookieLocale === 'uz') {
+        return 'uz';
+    }
+
+    // Har doim standart sifatida O'zbek tili ('uz') ochiladi.
+    // Brauzer yoki telefonning Accept-Language (ruscha) sarlavhalari hisobga olinmaydi.
+    return i18n.defaultLocale; // 'uz'
 }
 
 export async function middleware(request: NextRequest) {

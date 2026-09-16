@@ -250,6 +250,10 @@ export default function PWAFlow() {
         localStorage.setItem(LANG_KEY, lang);
         setPickedLang(lang);
         setLanguage(lang);
+        if (typeof document !== "undefined") {
+            document.cookie = `eltron_locale=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+            document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+        }
         // URL ni yangilash
         const newPath = pathname.replace(/^\/(uz|ru)/, `/${lang}`);
         router.replace(newPath);

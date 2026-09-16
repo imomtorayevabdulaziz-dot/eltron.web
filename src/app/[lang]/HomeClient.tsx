@@ -21,6 +21,7 @@ import PromoCountdown from "@/components/velari/PromoCountdown";
 import StoriesRow from "@/components/velari/StoriesRow";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
 import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { videoPreWarmer } from "@/lib/videoPreWarmer";
 
 import type { Product, Category, Banner } from "@/types";
@@ -509,7 +510,8 @@ export default function HomeClient({
                     >
                         <Logo size="sm" showSmile={false} />
                     </Link>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <LanguageSwitcher variant="compact" />
                         <Link
                             href={`/${language}/account`}
                             onClick={() => videoPreWarmer.triggerHaptic("light")}

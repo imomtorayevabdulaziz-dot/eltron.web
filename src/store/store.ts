@@ -65,7 +65,13 @@ export const useStore = create<StoreState>()(
             wishlist: [],
             user: null,
             language: "uz",
-            setLanguage: (lang) => set({ language: lang }),
+            setLanguage: (lang) => {
+                if (typeof document !== "undefined") {
+                    document.cookie = `eltron_locale=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+                    document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+                }
+                set({ language: lang });
+            },
             addToCart: (product) => set((state) => {
                 const existing = state.cart.find((item) => item.id === product.id);
                 const maxStock = product.stock ?? 999;

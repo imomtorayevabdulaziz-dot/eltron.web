@@ -13,6 +13,7 @@ import { translations } from "@/lib/translations";
 import { useState, useMemo, useRef, useEffect } from "react";
 import { SearchResult } from "@/types";
 import { videoPreWarmer } from "@/lib/videoPreWarmer";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 
 export default function Navigation() {
     const user = useStore(state => state.user);
@@ -327,6 +328,11 @@ export default function Navigation() {
                         )}
                     </form>
 
+                    {/* Mobile Language Switcher */}
+                    <div className="md:hidden shrink-0">
+                        <LanguageSwitcher variant="compact" />
+                    </div>
+
                     <div className="hidden md:flex items-center gap-2 md:gap-6 shrink-0 h-full">
                         <Link
                             href={l("/reels")}
@@ -384,7 +390,8 @@ export default function Navigation() {
                             <span className="text-[9px] font-black uppercase tracking-tighter hidden xl:block">{t.nav.cart}</span>
                         </Link>
 
-                        <div className="pl-4 md:pl-6 border-l border-gray-100 items-center gap-4 hidden lg:flex">
+                        <div className="pl-4 md:pl-6 border-l border-gray-100 items-center gap-3 hidden lg:flex">
+                            <LanguageSwitcher variant="pill" />
                             {user ? (
                                 <Link
                                     href={l("/account")}

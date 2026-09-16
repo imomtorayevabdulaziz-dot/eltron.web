@@ -332,6 +332,10 @@ function AccountContent() {
                             onClick={() => {
                                 videoPreWarmer.triggerHaptic("selection");
                                 setLanguage("uz"); 
+                                if (typeof document !== "undefined") {
+                                    document.cookie = "eltron_locale=uz; path=/; max-age=31536000; SameSite=Lax";
+                                    document.cookie = "NEXT_LOCALE=uz; path=/; max-age=31536000; SameSite=Lax";
+                                }
                                 router.push("/uz/account");
                                 setView("menu"); 
                             }}
@@ -344,6 +348,10 @@ function AccountContent() {
                             onClick={() => {
                                 videoPreWarmer.triggerHaptic("selection");
                                 setLanguage("ru"); 
+                                if (typeof document !== "undefined") {
+                                    document.cookie = "eltron_locale=ru; path=/; max-age=31536000; SameSite=Lax";
+                                    document.cookie = "NEXT_LOCALE=ru; path=/; max-age=31536000; SameSite=Lax";
+                                }
                                 router.push("/ru/account");
                                 setView("menu"); 
                             }}
