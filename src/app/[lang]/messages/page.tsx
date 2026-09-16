@@ -184,7 +184,7 @@ export default function MessagesPage() {
 
                             <div className="space-y-1">
                                 <Link 
-                                    href="/account" 
+                                    href={`/${language}/account`} 
                                     onClick={() => videoPreWarmer.triggerHaptic("light")}
                                     className="ios-tap-feedback active:scale-[0.98] transition-transform flex items-center gap-3 p-2.5 hover:bg-[#F5F7F5] rounded-xl group"
                                 >
@@ -195,7 +195,7 @@ export default function MessagesPage() {
                                 </Link>
 
                                 <Link 
-                                    href="/orders" 
+                                    href={`/${language}/orders`} 
                                     onClick={() => videoPreWarmer.triggerHaptic("light")}
                                     className="ios-tap-feedback active:scale-[0.98] transition-transform flex items-center gap-3 p-2.5 hover:bg-[#F5F7F5] rounded-xl group"
                                 >
@@ -267,7 +267,7 @@ export default function MessagesPage() {
                         {/* Admin Support Chat - Pinned at Top */}
                         {supportChat && `admin support qo'llab quvvatlash`.includes(searchQuery.toLowerCase()) && (
                             <Link
-                                href="/chat"
+                                href={`/${language}/chat`}
                                 onClick={() => videoPreWarmer.triggerHaptic("light")}
                                 className="ios-tap-feedback active:scale-[0.98] transition-transform duration-150 will-change-transform flex items-center gap-3.5 p-3.5 rounded-[24px] text-white relative overflow-hidden shadow-md shadow-[#2D6E3E]/20 mb-2.5 border border-white/20"
                                 style={{ background: "linear-gradient(135deg, #2D6E3E 0%, #1F5A30 100%)" }}

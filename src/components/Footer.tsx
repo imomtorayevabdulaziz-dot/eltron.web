@@ -42,7 +42,7 @@ export default function Footer() {
                         <h4 className="font-bold text-gray-900 text-sm md:text-base">{t.footer.about}</h4>
                         <ul className="space-y-3">
                             <li>
-                                <Link href="/about" className="text-gray-500 hover:text-black text-xs transition-colors">
+                                <Link href={`/${language}/about`} className="text-gray-500 hover:text-black text-xs transition-colors">
                                     {t.footer.about}
                                 </Link>
                             </li>
@@ -74,12 +74,12 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <Link href="/about" className="text-gray-500 hover:text-black text-xs transition-colors">
+                                <Link href={`/${language}/about`} className="text-gray-500 hover:text-black text-xs transition-colors">
                                     {t.footer.contactUs}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/return-policy" className="text-gray-500 hover:text-black text-xs transition-colors">
+                                <Link href={`/${language}/return-policy`} className="text-gray-500 hover:text-black text-xs transition-colors">
                                     {language === "uz" ? "Qaytarish va almashtirish" : "Возврат и обмен"}
                                 </Link>
                             </li>

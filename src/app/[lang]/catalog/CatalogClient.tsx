@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
-import { Search, SlidersHorizontal, ArrowUpDown, X, Check, Loader2, PackageSearch, Camera, Sparkles } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, X, Check, Loader2, PackageSearch, Camera, Sparkles, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { translations } from "@/lib/translations";
 import { supabase } from "@/lib/supabase";

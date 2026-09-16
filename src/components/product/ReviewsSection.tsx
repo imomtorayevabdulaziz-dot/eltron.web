@@ -273,7 +273,7 @@ export const ReviewsSection = ({
                     </div>
                 </div>
             ) : (
-                <Link href="/login" className="block text-center p-8 rounded-[24px] border-2 border-dashed text-sm font-bold mb-8" style={{ background: "#fff", borderColor: "rgba(45,110,62,0.18)", color: GREEN }}>
+                <Link href={`/${language}/login`} className="block text-center p-8 rounded-[24px] border-2 border-dashed text-sm font-bold mb-8" style={{ background: "#fff", borderColor: "rgba(45,110,62,0.18)", color: GREEN }}>
                     {language === 'uz' ? "Sharh qoldirish uchun kiring" : "Войдите чтобы оставить отзыв"}
                 </Link>
             )}

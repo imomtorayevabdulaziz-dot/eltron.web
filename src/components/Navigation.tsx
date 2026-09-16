@@ -224,9 +224,9 @@ export default function Navigation() {
                             value={search}
                             onChange={handleSearchChange}
                             onFocus={() => { if (search.trim()) setShowSuggestions(true); }}
-                            className="w-full bg-[#F5F9F6] border-2 border-transparent rounded-xl md:rounded-2xl py-2 md:py-4 pl-10 md:pl-14 pr-12 md:pr-16 text-xs md:text-base font-bold placeholder:text-gray-400 focus:bg-white focus:border-[#2d6e3e]/30 focus:ring-4 focus:ring-[#2d6e3e]/5 outline-none transition-[background-color,border-color,box-shadow] duration-200 shadow-sm"
+                            className="w-full bg-[#F5F9F6] border-2 border-transparent rounded-xl md:rounded-2xl py-2 md:py-4 pl-9 md:pl-14 pr-10 md:pr-24 text-xs md:text-base font-bold placeholder:text-gray-400 focus:bg-white focus:border-[#2d6e3e]/30 focus:ring-4 focus:ring-[#2d6e3e]/5 outline-none transition-[background-color,border-color,box-shadow] duration-200 shadow-sm"
                         />
-                        <div className="absolute inset-y-0 right-2 flex items-center gap-1 md:gap-2">
+                        <div className="absolute inset-y-0 right-1.5 md:right-2 flex items-center gap-0.5 md:gap-2">
                             {search && (
                                 <button
                                     type="button"
@@ -239,19 +239,19 @@ export default function Navigation() {
                                         setStoreGlobalQuery("");
                                         if (debounceTimer.current) clearTimeout(debounceTimer.current);
                                     }}
-                                    className="ios-icon-tap active:scale-85 transition-transform duration-150 p-2 text-gray-400 hover:text-black will-change-transform"
+                                    className="ios-icon-tap active:scale-85 transition-transform duration-150 p-1.5 text-gray-400 hover:text-black will-change-transform"
                                 >
-                                    <X size={18} />
+                                    <X size={16} />
                                 </button>
                             )}
                             <button
                                 type="button"
                                 aria-label="Rasm orqali qidirish"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="ios-icon-tap active:scale-85 transition-transform duration-150 p-2 text-gray-400 hover:text-[#2d6e3e] will-change-transform"
+                                className="ios-icon-tap active:scale-85 transition-transform duration-150 p-1.5 text-gray-400 hover:text-[#2d6e3e] will-change-transform"
                                 title={language === "uz" ? "Rasm orqali qidirish" : "Поиск по фото"}
                             >
-                                {isVisualSearching ? <Loader2 size={18} className="animate-spin text-[#2d6e3e]" /> : <Camera size={18} />}
+                                {isVisualSearching ? <Loader2 size={16} className="animate-spin text-[#2d6e3e]" /> : <Camera size={16} />}
                             </button>
                             <input
                                 ref={fileInputRef}
@@ -263,7 +263,7 @@ export default function Navigation() {
                             <button
                                 type="submit"
                                 onClick={() => videoPreWarmer.triggerHaptic("light")}
-                                className={`ios-icon-tap active:scale-90 p-2 md:p-3 rounded-lg md:rounded-xl transition-transform duration-150 will-change-transform ${isSearchLoading ? 'velari-green-btn' : 'text-gray-400 hover:text-[#2d6e3e] hover:bg-white shadow-sm'}`}
+                                className={`hidden md:flex items-center justify-center ios-icon-tap active:scale-90 p-2 md:p-3 rounded-lg md:rounded-xl transition-transform duration-150 will-change-transform ${isSearchLoading ? 'velari-green-btn' : 'text-gray-400 hover:text-[#2d6e3e] hover:bg-white shadow-sm'}`}
                             >
                                 {isSearchLoading ? <Loader2 size={18} className="animate-spin" /> : <Search size={20} />}
                             </button>

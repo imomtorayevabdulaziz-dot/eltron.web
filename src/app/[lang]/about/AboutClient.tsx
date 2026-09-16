@@ -99,7 +99,7 @@ export default function AboutClient({ initialSettings }: AboutClientProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8 md:mb-12 pt-8 md:pt-0 w-full border-b border-gray-50 pb-6">
                     <div className="flex items-center gap-3 min-w-0 flex-1 overflow-hidden">
-                        <Link href="/" style={{ width: 40, height: 40, borderRadius: 20, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(15,20,16,0.06)", flexShrink: 0, textDecoration: "none", color: "#0F1410" }}>
+                        <Link href={`/${language}`} style={{ width: 40, height: 40, borderRadius: 20, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(15,20,16,0.06)", flexShrink: 0, textDecoration: "none", color: "#0F1410" }}>
                             <ChevronLeft size={20} />
                         </Link>
                         <div>

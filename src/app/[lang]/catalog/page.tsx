@@ -6,26 +6,26 @@ import { getCategorySlug } from '@/lib/slugify';
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
     const lang = params.lang || 'uz';
-    const baseUrl = 'https://velari.uz';
+    const baseUrl = 'https://eltron-web.vercel.app';
 
     return {
         title: lang === 'uz' 
-            ? "Katalog | Velari - Premium Elektronika va Gadjetlar O'zbekistonda"
-            : "Каталог | Velari - Премиум электроника и гаджеты в Узбекистане",
+            ? "Katalog | Eltron - Premium Elektronika va Gadjetlar O'zbekistonda"
+            : "Каталог | Eltron - Премиум электроника и гаджеты в Узбекистане",
         description: lang === 'uz'
-            ? "Velari onlayn do'konida barcha turdagi smartfonlar, noutbuklar va gadjetlar katalogi. Muddatli to'lov, rasmiy kafolat va Toshkent bo'ylab tekin yetkazib berish."
-            : "Каталог всех видов смартфонов, ноутбуков и гаджетов в онлайн магазине Velari. Рассрочка, официальная гарантия и бесплатная доставка по Ташкенту.",
-        keywords: ["katalog", "smartfonlar", "gadjetlar", "elektronika", "Velari katalogi", "Toshkent", "Uzbekistan", "muddatli to'lov"],
+            ? "Eltron onlayn do'konida barcha turdagi aksessuarlar, smartfonlar va gadjetlar katalogi. Rasmiy kafolat va tez yetkazib berish."
+            : "Каталог всех видов аксессуаров, смартфонов и гаджетов в онлайн магазине Eltron. Официальная гарантия и быстрая доставка.",
+        keywords: ["katalog", "aksessuarlar", "smartfonlar", "gadjetlar", "elektronika", "Eltron katalogi", "Toshkent", "Uzbekistan"],
         openGraph: {
             title: lang === 'uz' 
-                ? "Katalog | Velari - Premium Elektronika va Gadjetlar"
-                : "Каталог | Velari - Премиум электроника и гаджеты",
+                ? "Katalog | Eltron - Premium Elektronika va Gadjetlar"
+                : "Каталог | Eltron - Премиум электроника и гаджеты",
             description: lang === 'uz'
-                ? "Barcha turdagi original gadjetlar va elektronika mahsulotlari katalogi."
-                : "Каталог всех видов оригинальных гаджетов и электроники.",
+                ? "Barcha turdagi original aksessuarlar va elektronika mahsulotlari katalogi."
+                : "Каталог всех видов оригинальных аксессуаров и электроники.",
             url: `${baseUrl}/${lang}/catalog`,
-            siteName: "Velari",
-            images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Velari Katalog" }],
+            siteName: "Eltron",
+            images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Eltron Katalog" }],
             locale: lang === 'uz' ? "uz_UZ" : "ru_RU",
             type: "website",
         },

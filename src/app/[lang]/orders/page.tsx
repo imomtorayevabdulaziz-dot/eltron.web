@@ -322,7 +322,7 @@ export default function OrdersPage() {
                 <p className="text-gray-500 font-medium">
                     {t.common.loginToSeeOrders}
                 </p>
-                <Link href="/login" className="px-8 py-3 rounded-full font-bold shadow-lg text-white" style={{ background: "#2D6E3E" }}>
+                <Link href={`/${language}/login`} className="px-8 py-3 rounded-full font-bold shadow-lg text-white" style={{ background: "#2D6E3E" }}>
                     {t.account.login}
                 </Link>
             </div>

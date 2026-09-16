@@ -122,10 +122,10 @@ export default function BrandedEmptyState({
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center">
-                    <Link href="/" className="ios-tap-feedback active:scale-[0.98] transition-transform px-8 py-3.5 velari-green-btn rounded-2xl font-semibold text-sm shadow-md shadow-[#2D6E3E]/20 flex items-center gap-2.5 text-white">
+                    <Link href={`/${language}`} className="ios-tap-feedback active:scale-[0.98] transition-transform px-8 py-3.5 velari-green-btn rounded-2xl font-semibold text-sm shadow-md shadow-[#2D6E3E]/20 flex items-center gap-2.5 text-white">
                         <Home size={17} /> {language === 'uz' ? "Bosh sahifa" : "Главная"}
                     </Link>
-                    <Link href="/catalog" className="ios-tap-feedback active:scale-[0.98] transition-transform px-8 py-3.5 bg-white/90 backdrop-blur-md text-[#111612] border border-[rgba(15,20,16,0.08)] rounded-2xl font-semibold text-sm hover:bg-white shadow-xs flex items-center gap-2.5">
+                    <Link href={`/${language}/catalog`} className="ios-tap-feedback active:scale-[0.98] transition-transform px-8 py-3.5 bg-white/90 backdrop-blur-md text-[#111612] border border-[rgba(15,20,16,0.08)] rounded-2xl font-semibold text-sm hover:bg-white shadow-xs flex items-center gap-2.5">
                         <ShoppingBag size={17} /> {language === 'uz' ? "Katalog" : "Каталог"}
                     </Link>
                 </div>
@@ -141,7 +141,7 @@ export default function BrandedEmptyState({
                                 {language === 'uz' ? "Ommabop mahsulotlar" : "Популярные товары"}
                             </h2>
                         </div>
-                        <Link href="/catalog" className="text-xs font-semibold text-[#2D6E3E] hover:underline">
+                        <Link href={`/${language}/catalog`} className="text-xs font-semibold text-[#2D6E3E] hover:underline">
                             {language === 'uz' ? "Barchasi" : "Все"}
                         </Link>
                     </div>

@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 import { AlertCircle, RotateCcw, Home } from 'lucide-react'
 import Link from 'next/link'
 
+import { useParams } from 'next/navigation'
+
 export default function Error({
   error,
   reset,
@@ -11,6 +13,9 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const params = useParams()
+  const lang = (params?.lang as string) === 'ru' ? 'ru' : 'uz'
+
   useEffect(() => {
     // Log the error to an error reporting service
     console.error('Application Error:', error)
@@ -24,10 +29,12 @@ export default function Error({
         </div>
         
         <h2 className="text-xl font-bold text-[#111612] mb-2 tracking-tight">
-          Nimadir noto&apos;g&apos;ri ketdi
+          {lang === 'ru' ? 'Что-то пошло не так' : "Nimadir noto'g'ri ketdi"}
         </h2>
         <p className="text-[rgba(15,20,16,0.62)] text-sm max-w-xs mx-auto mb-8 font-normal leading-relaxed">
-          Kutilmagan xatolik yuz berdi. Iltimos, sahifani yangilang yoki asosiy sahifaga qayting.
+          {lang === 'ru' 
+            ? 'Произошла неожиданная ошибка. Пожалуйста, обновите страницу или вернитесь на главную.'
+            : "Kutilmagan xatolik yuz berdi. Iltimos, sahifani yangilang yoki asosiy sahifaga qayting."}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
@@ -36,15 +43,15 @@ export default function Error({
             className="flex items-center justify-center gap-2 bg-[#2D6E3E] hover:bg-[#235831] text-white px-6 py-3 rounded-full font-semibold text-xs active:scale-95 transition-transform duration-150 will-change-transform shadow-sm"
           >
             <RotateCcw size={15} />
-            <span>Qayta urinish</span>
+            <span>{lang === 'ru' ? 'Повторить' : 'Qayta urinish'}</span>
           </button>
           
           <Link
-            href="/"
+            href={`/${lang}`}
             className="flex items-center justify-center gap-2 bg-[rgba(15,20,16,0.05)] hover:bg-[rgba(15,20,16,0.08)] text-[#111612] px-6 py-3 rounded-full font-semibold text-xs active:scale-95 transition-transform duration-150 will-change-transform"
           >
             <Home size={15} />
-            <span>Bosh sahifa</span>
+            <span>{lang === 'ru' ? 'Главная' : 'Bosh sahifa'}</span>
           </Link>
         </div>
 

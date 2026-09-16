@@ -108,7 +108,7 @@ export default function CartPage() {
                             {t.cart.empty}
                         </p>
                         <Link
-                            href="/"
+                            href={`/${language}`}
                             onClick={() => videoPreWarmer.triggerHaptic("light")}
                             className="ios-tap-feedback active:scale-[0.98] transition-transform duration-150"
                             style={{
@@ -312,7 +312,7 @@ export default function CartPage() {
                         zIndex: 50,
                     }}>
                         <Link
-                            href="/checkout"
+                            href={`/${language}/checkout`}
                             onClick={() => videoPreWarmer.triggerHaptic("medium")}
                             className="ios-tap-feedback active:scale-[0.98] transition-transform duration-150 will-change-transform"
                             style={{
@@ -341,7 +341,7 @@ export default function CartPage() {
                         </div>
                         <div className="flex items-center gap-2 shrink-0 ml-2">
                             <Link
-                                href="/orders"
+                                href={`/${language}/orders`}
                                 onClick={() => videoPreWarmer.triggerHaptic("light")}
                                 className="ios-tap-feedback active:scale-95 p-3 bg-white/80 backdrop-blur-md rounded-2xl text-gray-500 hover:text-black border border-black/5 transition-colors duration-150 flex items-center gap-2"
                             >
@@ -361,7 +361,7 @@ export default function CartPage() {
                             </div>
                             <p className="text-gray-500 font-semibold text-sm mb-6">{t.cart.empty}</p>
                             <Link
-                                href="/"
+                                href={`/${language}`}
                                 onClick={() => videoPreWarmer.triggerHaptic("light")}
                                 className="ios-tap-feedback active:scale-[0.98] px-8 py-3.5 rounded-full font-semibold text-[13.5px] transition-transform duration-150"
                                 style={{ background: "linear-gradient(135deg, #2D6E3E 0%, #1F5A30 100%)", color: "#fff", boxShadow: "0 8px 20px rgba(45,110,62,0.28)" }}
@@ -468,7 +468,7 @@ export default function CartPage() {
                                         <p className="text-2xl font-bold tracking-tight text-black break-words">{total.toLocaleString("uz-UZ")}<span className="text-base font-normal opacity-80"> so'm</span></p>
                                     </div>
                                     <Link
-                                        href="/checkout"
+                                        href={`/${language}/checkout`}
                                         onClick={() => videoPreWarmer.triggerHaptic("medium")}
                                         className="ios-tap-feedback active:scale-[0.98] flex w-full py-4 rounded-2xl font-semibold text-sm transition-transform duration-150 justify-center items-center gap-2 will-change-transform"
                                         style={{ background: "linear-gradient(135deg, #2D6E3E 0%, #1F5A30 100%)", color: "#fff", boxShadow: "0 8px 20px rgba(45,110,62,0.28)" }}

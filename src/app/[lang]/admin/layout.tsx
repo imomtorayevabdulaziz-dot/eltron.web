@@ -225,7 +225,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         const verify = async () => {
             if (!user || !isAdmin) {
-                router.replace("/login");
+                router.replace(`/${language}/login`);
                 return;
             }
             try {
@@ -234,10 +234,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 if (res.ok) {
                     setIsAuthorized(true);
                 } else {
-                    router.replace("/login");
+                    router.replace(`/${language}/login`);
                 }
             } catch {
-                if (!cancelled) router.replace("/login");
+                if (!cancelled) router.replace(`/${language}/login`);
             }
         };
 
@@ -342,7 +342,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-black text-white transform transition-transform duration-500 ease-in-out lg:translate-x-0 flex flex-col ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="p-10 flex-1 overflow-y-auto scrollbar-hide">
                     <div className="mb-12 flex items-center justify-between">
-                        <Link href="/" className="hover:opacity-90 transition-opacity">
+                        <Link href={`/${language}`} className="hover:opacity-90 transition-opacity">
                             <Logo size="md" dark={true} />
                         </Link>
                         <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-widest bg-[#2D6E3E] text-white rounded-full">
@@ -380,7 +380,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
 
                 <div className="p-10 border-t border-white/10 bg-black/50 backdrop-blur-md">
-                    <Link href="/" className="flex items-center gap-4 text-gray-500 hover:text-red-400 transition-all font-bold group">
+                    <Link href={`/${language}`} className="flex items-center gap-4 text-gray-500 hover:text-red-400 transition-all font-bold group">
                         <div className="p-3 bg-white/5 rounded-xl group-hover:bg-red-500/10 transition-colors">
                             <LogOut size={20} />
                         </div>

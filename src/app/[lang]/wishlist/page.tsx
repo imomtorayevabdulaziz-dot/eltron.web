@@ -35,7 +35,7 @@ export default function WishlistPage() {
                     <Heart size={36} color="#D0D5CF" />
                 </div>
                 <p style={{ fontSize: 15, fontWeight: 600, color: "#9AA29C", marginBottom: 24 }}>{t.common.loginToSeeWishlist}</p>
-                <Link href="/login" style={{ display: "inline-block", padding: "14px 32px", background: GREEN, color: "#fff", borderRadius: 27, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 8px 24px rgba(45,110,62,0.28)" }}>
+                <Link href={`/${language}/login`} style={{ display: "inline-block", padding: "14px 32px", background: GREEN, color: "#fff", borderRadius: 27, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 8px 24px rgba(45,110,62,0.28)" }}>
                     {t.account.login}
                 </Link>
             </div>
@@ -70,7 +70,7 @@ export default function WishlistPage() {
                             <Heart size={36} color="#D0D5CF" />
                         </div>
                         <p style={{ fontSize: 15, fontWeight: 600, color: "#9AA29C", marginBottom: 24 }}>{t.common.nothingHereYet}</p>
-                        <Link href="/" style={{ display: "inline-block", padding: "14px 32px", background: GREEN, color: "#fff", borderRadius: 27, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 8px 24px rgba(45,110,62,0.28)" }}>
+                        <Link href={`/${language}`} style={{ display: "inline-block", padding: "14px 32px", background: GREEN, color: "#fff", borderRadius: 27, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 8px 24px rgba(45,110,62,0.28)" }}>
                             {t.common.viewProducts}
                         </Link>
                     </div>
@@ -168,7 +168,7 @@ export default function WishlistPage() {
                     <div className="flex flex-col items-center justify-center h-64 text-gray-400">
                         <Heart size={48} className="mb-4 opacity-20" />
                         <p className="font-medium">{t.common.nothingHereYet}</p>
-                        <Link href="/" className="mt-4 text-black font-bold border-b-2 border-black">{t.common.viewProducts}</Link>
+                        <Link href={`/${language}`} className="mt-4 text-black font-bold border-b-2 border-black">{t.common.viewProducts}</Link>
                     </div>
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">

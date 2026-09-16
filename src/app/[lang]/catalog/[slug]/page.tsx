@@ -4,17 +4,17 @@ import CatalogClient from '../CatalogClient';
 import { getCatalogCategories, resolveCategoryBySlug } from '@/lib/categories';
 import { getCategorySlug } from '@/lib/slugify';
 
-export const revalidate = 86400; // 24 soat
+export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { lang: string; slug: string } }): Promise<Metadata> {
     const lang = params.lang === 'ru' ? 'ru' : 'uz';
-    const baseUrl = 'https://velari.uz';
+    const baseUrl = 'https://eltron-web.vercel.app';
     const categories = await getCatalogCategories();
     const cat = resolveCategoryBySlug(categories, params.slug, lang);
 
     if (!cat) {
         return {
-            title: "404 - Sahifa topilmadi | Velari",
+            title: "404 - Sahifa topilmadi | Eltron",
             robots: { index: false, follow: false },
         };
     }
@@ -25,11 +25,11 @@ export async function generateMetadata({ params }: { params: { lang: string; slu
     const canonicalSlug = lang === 'ru' ? ruSlug : uzSlug;
 
     const title = lang === 'ru'
-        ? `${name} — купить в Ташкенте | Velari`
-        : `${name} — Toshkentda sotib olish | Velari`;
+        ? `${name} — купить в Ташкенте | Eltron`
+        : `${name} — Toshkentda sotib olish | Eltron`;
     const description = lang === 'ru'
-        ? `${name}: широкий выбор по выгодным ценам. Рассрочка, официальная гарантия и бесплатная доставка по Ташкенту. Velari Market.`
-        : `${name}: keng tanlov hamyonbop narxlarda. Muddatli to'lov, rasmiy kafolat va Toshkent bo'ylab tekin yetkazib berish. Velari Market.`;
+        ? `${name}: широкий выбор по выгодным ценам. Рассрочка, официальная гарантия и быстрая доставка. Eltron.`
+        : `${name}: keng tanlov hamyonbop narxlarda. Muddatli to'lov, rasmiy kafolat va tez yetkazib berish. Eltron.`;
 
     return {
         title,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: { lang: string; slu
         openGraph: {
             title, description,
             url: `${baseUrl}/${lang}/catalog/${canonicalSlug}`,
-            siteName: 'Velari', type: 'website',
+            siteName: 'Eltron', type: 'website',
             locale: lang === 'ru' ? 'ru_RU' : 'uz_UZ',
             images: [{ url: '/og-image.png', width: 1200, height: 630, alt: name }],
         },
