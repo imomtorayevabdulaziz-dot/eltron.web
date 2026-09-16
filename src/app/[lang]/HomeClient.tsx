@@ -278,8 +278,8 @@ export default function HomeClient({
             .on('postgres_changes', { event: '*', schema: 'public', table: 'settings', filter: 'id=eq.banners' }, (payload: any) => {
                 if (payload.new && payload.new.data) {
                     setBannerSettings({
-                        desktopHeight: payload.new.data.desktopHeight || 210,
-                        borderRadius: payload.new.data.borderRadius || 32
+                        desktopHeight: payload.new.data.desktopHeight || 420,
+                        borderRadius: payload.new.data.borderRadius || 28
                     });
                 }
             })

@@ -26,7 +26,7 @@ const STARTER_TEMPLATE = `<a href="/uz/catalog" style="display:flex;width:100%;h
 </a>`;
 
 // AIga (ChatGPT/Claude) beriladigan to'liq prompt. "Nusxalash" tugmasi shuni clipboardga oladi.
-const AI_PROMPT = `Sen Velari onlayn-do'koni uchun bosh sahifa bannerining HTML kodini yozasan.
+const AI_PROMPT = `Sen Eltron onlayn-do'koni uchun bosh sahifa bannerining HTML kodini yozasan.
 Banner dangerouslySetInnerHTML orqali render qilinadi va konteynerni to'ldiradi.
 Faqat tayyor HTML kodini qaytar — markdown (\`\`\`), izoh yoki tushuntirishsiz.
 

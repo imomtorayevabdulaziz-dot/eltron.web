@@ -75,8 +75,8 @@ async function getInitialData() {
         const categories = visibleCatRows.map(mapCategory);
         const banners = (bannersData || []).map(mapBanner);
         const bannerSettings = settingsData?.data
-            ? { desktopHeight: settingsData.data.desktopHeight || 210, borderRadius: settingsData.data.borderRadius || 32 }
-            : { desktopHeight: 210, borderRadius: 32 };
+            ? { desktopHeight: settingsData.data.desktopHeight || 420, borderRadius: settingsData.data.borderRadius || 28 }
+            : { desktopHeight: 420, borderRadius: 28 };
         const promoSettings = (promoData?.value as any) || null;
 
         // Kategoriya vitrinasi: tanlangan, mahsuloti bor, tartibda saqlangan kategoriyalar.
