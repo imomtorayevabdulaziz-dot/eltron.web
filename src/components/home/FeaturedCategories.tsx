@@ -73,8 +73,8 @@ export default function FeaturedCategories({ language, initial }: { language: "u
                     }
                 }
 
-                // Faqat mahsuloti bor tanlangan kategoriyalar
-                const visibleIds = ids.filter(id => nonEmpty.has(String(id)));
+                // Faqat mahsuloti bor tanlangan kategoriyalar (yoki boshlang'ich paytda barcha tanlanganlar)
+                const visibleIds = nonEmpty.size === 0 ? ids : ids.filter(id => nonEmpty.has(String(id)));
                 if (visibleIds.length === 0) { setLoading(false); return; }
 
                 const { data: cats } = await supabase

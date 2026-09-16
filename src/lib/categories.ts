@@ -8,6 +8,7 @@ export type CatalogCategory = {
     name_ru?: string;
     parentId?: string;
     image?: string;
+    icon?: string;
     image_meta?: any;
 };
 
@@ -16,7 +17,7 @@ export async function getCatalogCategories(): Promise<CatalogCategory[]> {
     try {
         const { data, error } = await supabaseAdmin
             .from("categories")
-            .select("id,name,name_uz,name_ru,parent_id,image,image_meta")
+            .select("id,name,name_uz,name_ru,parent_id,image,icon,image_meta")
             .eq("is_deleted", false)
             .order("name");
 
@@ -32,6 +33,7 @@ export async function getCatalogCategories(): Promise<CatalogCategory[]> {
             name_ru: c.name_ru,
             parentId: c.parent_id,
             image: c.image,
+            icon: c.icon,
             image_meta: c.image_meta || undefined,
         }));
     } catch (error) {

@@ -23,6 +23,7 @@ interface Category {
     name_ru?: string;
     parentId?: string;
     image?: string;
+    icon?: string;
 }
 
 interface Brand {
@@ -135,7 +136,7 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                     if (data) {
                         const cData = data.map(c => ({
                             id: c.id, name: c.name, name_uz: c.name_uz, name_ru: c.name_ru,
-                            parentId: c.parent_id, image: c.image,
+                            parentId: c.parent_id, image: c.image, icon: c.icon
                         })) as Category[];
                         setAllCategories(cData);
                         setCachedCategories(cData);
@@ -473,7 +474,7 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                         {language === "uz" ? "Hammasi" : "Все"}
                     </Pill>
                     {mainCategories.map(c => (
-                        <Pill key={c.id} active={mainCat === c.id} onClick={() => { setMainCat(c.id); setSubCat("all"); }}>
+                        <Pill key={c.id} icon={c.image || c.icon} active={mainCat === c.id} onClick={() => { setMainCat(c.id); setSubCat("all"); }}>
                             {catName(c)}
                         </Pill>
                     ))}
@@ -489,7 +490,7 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                             {language === "uz" ? "Barchasi" : "Все"}
                         </Pill>
                         {subCategories.map(c => (
-                            <Pill key={c.id} small active={subCat === c.id} onClick={() => setSubCat(c.id)}>
+                            <Pill key={c.id} small icon={c.image || c.icon} active={subCat === c.id} onClick={() => setSubCat(c.id)}>
                                 {catName(c)}
                             </Pill>
                         ))}
@@ -718,22 +719,29 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
     );
 }
 
-function Pill({ children, active, onClick, small }: { children: React.ReactNode; active: boolean; onClick: () => void; small?: boolean }) {
+function Pill({ children, active, onClick, small, icon }: { children: React.ReactNode; active: boolean; onClick: () => void; small?: boolean; icon?: string }) {
     return (
         <button
             onClick={() => {
                 videoPreWarmer.triggerHaptic("light");
                 onClick();
             }}
-            className={`shrink-0 rounded-full font-semibold transition-[transform,colors] duration-150 whitespace-nowrap ios-tap-feedback active:scale-95 will-change-transform border ${
-                small ? "px-4 py-2 text-xs" : "px-5 py-2.5 text-[13.5px]"
+            className={`shrink-0 rounded-full font-semibold transition-[transform,colors,box-shadow] duration-150 whitespace-nowrap ios-tap-feedback active:scale-95 will-change-transform border flex items-center gap-2 ${
+                small ? "px-3.5 py-1.5 text-xs" : "px-4.5 py-2.5 text-[13.5px]"
             } ${
                 active
-                    ? "bg-gradient-to-r from-[#2D6E3E] to-[#1F5A30] text-white border-transparent shadow-md shadow-[#2D6E3E]/20"
-                    : "bg-white/80 backdrop-blur-md text-[#2C332E] border-black/5 hover:bg-white hover:text-black hover:shadow-sm"
+                    ? "bg-[#0F1410] text-[#D4AF37] border-[#D4AF37]/40 shadow-md shadow-[#D4AF37]/15"
+                    : "bg-white/90 backdrop-blur-md text-[#2C332E] border-black/5 hover:bg-white hover:text-black hover:border-[#D4AF37]/30 hover:shadow-sm"
             }`}
         >
-            {children}
+            {icon && (
+                icon.startsWith('/') ? (
+                    <img src={icon} alt="" className={`${small ? "w-4 h-4" : "w-5 h-5"} object-contain shrink-0 rounded-md`} />
+                ) : (
+                    <span className={`${small ? "text-xs" : "text-sm"} shrink-0 leading-none`}>{icon}</span>
+                )
+            )}
+            <span>{children}</span>
         </button>
     );
 }

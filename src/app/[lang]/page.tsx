@@ -69,7 +69,9 @@ async function getInitialData() {
             }
         });
 
-        const visibleCatRows = rawCats.filter((c: any) => nonEmpty.has(String(c.id)));
+        const visibleCatRows = directCatIds.size === 0
+            ? rawCats
+            : rawCats.filter((c: any) => nonEmpty.has(String(c.id)));
 
         const products = (productsData || []).map(mapProduct).filter((p: any) => getProductRealStock(p) > 0).slice(0, 20);
         const categories = visibleCatRows.map(mapCategory);
@@ -79,13 +81,13 @@ async function getInitialData() {
             : { desktopHeight: 420, borderRadius: 28 };
         const promoSettings = (promoData?.value as any) || null;
 
-        // Kategoriya vitrinasi: tanlangan, mahsuloti bor, tartibda saqlangan kategoriyalar.
+        // Kategoriya vitrinasi: tanlangan, mahsuloti bor (yoki boshlang'ich), tartibda saqlangan kategoriyalar.
         const fcData: any = (featuredSettingRow as any)?.data || null;
         const fcShow = fcData ? fcData.show_on_home !== false : false;
         const fcIds: string[] = fcData?.category_ids || [];
         const featuredCategories = (fcShow ? fcIds : [])
             .map((id: string) => rawCats.find((c: any) => String(c.id) === String(id)))
-            .filter((c: any) => c && nonEmpty.has(String(c.id)))
+            .filter((c: any) => c && (directCatIds.size === 0 || nonEmpty.has(String(c.id))))
             .map((c: any) => ({
                 id: String(c.id),
                 name: c.name,

@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     };
 }
 
-export const revalidate = 86400; // 24 hours
+export const revalidate = 0; // Dynamic SSR
 
 export default async function CatalogPage({ params, searchParams }: {
     params: { lang: string };
