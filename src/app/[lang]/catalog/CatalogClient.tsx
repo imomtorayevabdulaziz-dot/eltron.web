@@ -480,7 +480,7 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                     ))}
                 </div>
 
-                {/* Sub category pills */}
+                {/* Sub category pills (shown when a main category is selected) */}
                 {subCategories.length > 0 && (
                     <div
                         className="flex gap-2.5 overflow-x-auto no-scrollbar pb-1 mb-3 -mx-1 px-1 overscroll-x-contain touch-pan-x"
@@ -494,6 +494,41 @@ export default function CatalogClient({ initialCategories, initialCategory }: Ca
                                 {catName(c)}
                             </Pill>
                         ))}
+                    </div>
+                )}
+
+                {/* 2 Main category entry cards when on 'Hammasi' */}
+                {mainCat === "all" && (
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                        {mainCategories.map(c => {
+                            const name = catName(c);
+                            const subtitle = c.id === 'telefon-aksessuarlari'
+                                ? (language === "uz" ? "8 ta toifa · Zaryadka, kabel..." : "8 категорий · Зарядки, чехлы...")
+                                : (language === "uz" ? "8 ta toifa · Sichqoncha..." : "8 категорий · Мыши, клавиатуры...");
+                            return (
+                                <button
+                                    key={c.id}
+                                    onClick={() => {
+                                        videoPreWarmer.triggerHaptic("selection");
+                                        setMainCat(c.id);
+                                        setSubCat("all");
+                                    }}
+                                    className="ios-tap-feedback active:scale-[0.98] p-3 md:p-4 rounded-2xl text-left border border-[#D4AF37]/25 flex items-center gap-3 transition-all duration-150 hover:border-[#D4AF37]/50 hover:shadow-md"
+                                    style={{
+                                        background: "linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%)",
+                                    }}
+                                >
+                                    {c.image && (
+                                        <img src={c.image} alt={name} className="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0" />
+                                    )}
+                                    <div className="min-w-0 flex-1">
+                                        <div className="text-xs md:text-sm font-bold text-[#0F1410] truncate">{name}</div>
+                                        <div className="text-[10px] md:text-xs text-[#9E7719] font-medium truncate">{subtitle}</div>
+                                    </div>
+                                    <ChevronRight size={16} className="text-[#D4AF37] shrink-0" />
+                                </button>
+                            );
+                        })}
                     </div>
                 )}
 

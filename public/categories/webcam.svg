@@ -1,43 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
   <defs>
-    <linearGradient id="eltronGold" x1="10%" y1="10%" x2="90%" y2="90%">
-      <stop offset="0%" stop-color="#FCE6A8" />
-      <stop offset="45%" stop-color="#D4AF37" />
-      <stop offset="80%" stop-color="#A57A18" />
-      <stop offset="100%" stop-color="#DEB84A" />
+    <!-- Metallic Eltron Gold Sheen (Apple hardware style) -->
+    <linearGradient id="appleGoldSheen" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFF5D6" />
+      <stop offset="25%" stop-color="#F5D075" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="75%" stop-color="#A2771B" />
+      <stop offset="100%" stop-color="#E8C35E" />
     </linearGradient>
-    <linearGradient id="goldLight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF8E7" />
-      <stop offset="100%" stop-color="#F7E6BD" />
+
+    <!-- Secondary Soft Gold Tone for inner accents / fills -->
+    <linearGradient id="appleGoldSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBF0" />
+      <stop offset="100%" stop-color="#F8EDD3" />
     </linearGradient>
-    <linearGradient id="goldBadge" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#D4AF37" />
-      <stop offset="100%" stop-color="#996E14" />
+
+    <!-- Specular Rim Gradient -->
+    <linearGradient id="appleGoldRim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF7DC" />
+      <stop offset="40%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#916912" />
     </linearGradient>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#D4AF37" flood-opacity="0.25" />
+
+    <!-- Apple Ambient Drop Shadow for Icon Elements -->
+    <filter id="appleShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#A57A18" flood-opacity="0.22" />
+    </filter>
+
+    <!-- Squircle Container Ambient Glow -->
+    <filter id="tileShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#D4AF37" flood-opacity="0.16" />
     </filter>
   </defs>
 
-  <!-- Background tile with subtle gold border -->
-  <rect x="4" y="4" width="112" height="112" rx="28" fill="url(#goldLight)" stroke="url(#eltronGold)" stroke-width="2" />
+  <!-- Apple Squircle Container (continuous 26px radius) -->
+  <rect x="5" y="5" width="110" height="110" rx="26" fill="url(#appleGoldSoft)" stroke="url(#appleGoldRim)" stroke-width="1.5" filter="url(#tileShadow)" />
   
-  <!-- Subtle decorative inner line -->
-  <rect x="8" y="8" width="104" height="104" rx="24" fill="none" stroke="#D4AF37" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="3 3" />
+  <!-- Subtle inner ambient light rim -->
+  <rect x="7" y="7" width="106" height="106" rx="24" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.7" />
 
-  <!-- Main Art Content -->
-  <g filter="url(#softGlow)">
+  <!-- Apple SF-style Gold Artwork -->
+  <g filter="url(#appleShadow)">
     
-    <!-- Webcam Head / Lens Capsule -->
-    <rect x="30" y="24" width="60" height="36" rx="18" stroke="url(#eltronGold)" stroke-width="3.5" fill="#FFFDF8" />
-    <!-- Main Camera Lens Rings -->
-    <circle cx="60" cy="42" r="12" stroke="url(#eltronGold)" stroke-width="3" fill="url(#goldLight)" />
-    <circle cx="60" cy="42" r="6" fill="url(#eltronGold)" />
-    <!-- Activity LED dot -->
-    <circle cx="78" cy="42" r="2.5" fill="url(#eltronGold)" />
-    <!-- Monitor Mount Clamp / Stand -->
-    <path d="M60 60 L60 74" stroke="url(#eltronGold)" stroke-width="4.5" stroke-linecap="round" />
-    <path d="M42 74 L78 74 C80 74 82 76 80 78 L74 94 C73 96 70 98 67 98 L53 98 C50 98 47 96 46 94 L40 78 C38 76 40 74 42 74 Z" stroke="url(#eltronGold)" stroke-width="3" fill="#FFFDF8" />
+    <!-- Camera Capsule Body -->
+    <rect x="30" y="24" width="60" height="36" rx="18" stroke="url(#appleGoldSheen)" stroke-width="3.5" fill="#FFFFFF" />
+    <!-- Center Stage Lens with Gold Rings -->
+    <circle cx="60" cy="42" r="12" stroke="url(#appleGoldSheen)" stroke-width="3" fill="#FFFFFF" />
+    <circle cx="60" cy="42" r="5.5" fill="url(#appleGoldSheen)" />
+    <!-- Apple Privacy Green LED Indicator -->
+    <circle cx="78" cy="42" r="2.5" fill="url(#appleGoldSheen)" />
+    <!-- Monitor Mount Clamp / Aluminum Stand -->
+    <path d="M60 60 L60 74" stroke="url(#appleGoldSheen)" stroke-width="4" stroke-linecap="round" />
+    <path d="M44 74 L76 74 C78 74 80 76 79 78 L74 94 C73 96 71 97 69 97 L51 97 C49 97 47 96 46 94 L41 78 C40 76 42 74 44 74 Z" stroke="url(#appleGoldSheen)" stroke-width="3" fill="#FFFFFF" />
   
   </g>
 </svg>

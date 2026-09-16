@@ -1,47 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
   <defs>
-    <linearGradient id="eltronGold" x1="10%" y1="10%" x2="90%" y2="90%">
-      <stop offset="0%" stop-color="#FCE6A8" />
-      <stop offset="45%" stop-color="#D4AF37" />
-      <stop offset="80%" stop-color="#A57A18" />
-      <stop offset="100%" stop-color="#DEB84A" />
+    <!-- Metallic Eltron Gold Sheen (Apple hardware style) -->
+    <linearGradient id="appleGoldSheen" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFF5D6" />
+      <stop offset="25%" stop-color="#F5D075" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="75%" stop-color="#A2771B" />
+      <stop offset="100%" stop-color="#E8C35E" />
     </linearGradient>
-    <linearGradient id="goldLight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF8E7" />
-      <stop offset="100%" stop-color="#F7E6BD" />
+
+    <!-- Secondary Soft Gold Tone for inner accents / fills -->
+    <linearGradient id="appleGoldSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBF0" />
+      <stop offset="100%" stop-color="#F8EDD3" />
     </linearGradient>
-    <linearGradient id="goldBadge" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#D4AF37" />
-      <stop offset="100%" stop-color="#996E14" />
+
+    <!-- Specular Rim Gradient -->
+    <linearGradient id="appleGoldRim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF7DC" />
+      <stop offset="40%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#916912" />
     </linearGradient>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#D4AF37" flood-opacity="0.25" />
+
+    <!-- Apple Ambient Drop Shadow for Icon Elements -->
+    <filter id="appleShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#A57A18" flood-opacity="0.22" />
+    </filter>
+
+    <!-- Squircle Container Ambient Glow -->
+    <filter id="tileShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#D4AF37" flood-opacity="0.16" />
     </filter>
   </defs>
 
-  <!-- Background tile with subtle gold border -->
-  <rect x="4" y="4" width="112" height="112" rx="28" fill="url(#goldLight)" stroke="url(#eltronGold)" stroke-width="2" />
+  <!-- Apple Squircle Container (continuous 26px radius) -->
+  <rect x="5" y="5" width="110" height="110" rx="26" fill="url(#appleGoldSoft)" stroke="url(#appleGoldRim)" stroke-width="1.5" filter="url(#tileShadow)" />
   
-  <!-- Subtle decorative inner line -->
-  <rect x="8" y="8" width="104" height="104" rx="24" fill="none" stroke="#D4AF37" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="3 3" />
+  <!-- Subtle inner ambient light rim -->
+  <rect x="7" y="7" width="106" height="106" rx="24" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.7" />
 
-  <!-- Main Art Content -->
-  <g filter="url(#softGlow)">
+  <!-- Apple SF-style Gold Artwork -->
+  <g filter="url(#appleShadow)">
     
-    <!-- Stand Frame -->
-    <rect x="22" y="32" width="76" height="56" rx="10" stroke="url(#eltronGold)" stroke-width="3.5" fill="#FFFDF8" />
-    <!-- Fan 1 Left -->
-    <circle cx="44" cy="58" r="14" stroke="url(#eltronGold)" stroke-width="2" stroke-dasharray="3 3" fill="url(#goldLight)" />
-    <circle cx="44" cy="58" r="4" fill="url(#eltronGold)" />
-    <path d="M44 44 C48 50, 48 54, 44 58" stroke="url(#eltronGold)" stroke-width="2" />
-    <path d="M44 72 C40 66, 40 62, 44 58" stroke="url(#eltronGold)" stroke-width="2" />
-    <!-- Fan 2 Right -->
-    <circle cx="76" cy="58" r="14" stroke="url(#eltronGold)" stroke-width="2" stroke-dasharray="3 3" fill="url(#goldLight)" />
-    <circle cx="76" cy="58" r="4" fill="url(#eltronGold)" />
-    <path d="M76 44 C80 50, 80 54, 76 58" stroke="url(#eltronGold)" stroke-width="2" />
-    <path d="M76 72 C72 66, 72 62, 76 58" stroke="url(#eltronGold)" stroke-width="2" />
-    <!-- Air ventilation slots -->
-    <line x1="30" y1="38" x2="90" y2="38" stroke="url(#eltronGold)" stroke-width="2" stroke-linecap="round" />
+    <!-- Precision Riser Top Plate -->
+    <rect x="24" y="32" width="72" height="56" rx="10" stroke="url(#appleGoldSheen)" stroke-width="3.5" fill="#FFFFFF" />
+    <!-- Dual Turbine Silent Fans -->
+    <circle cx="44" cy="58" r="13" stroke="url(#appleGoldSheen)" stroke-width="2" stroke-dasharray="3 3" fill="none" />
+    <circle cx="44" cy="58" r="4" fill="url(#appleGoldSheen)" />
+    <circle cx="76" cy="58" r="13" stroke="url(#appleGoldSheen)" stroke-width="2" stroke-dasharray="3 3" fill="none" />
+    <circle cx="76" cy="58" r="4" fill="url(#appleGoldSheen)" />
+    <!-- Ventilation Cutout Slot at Top -->
+    <line x1="34" y1="38" x2="86" y2="38" stroke="url(#appleGoldSheen)" stroke-width="2.5" stroke-linecap="round" />
   
   </g>
 </svg>
