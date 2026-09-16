@@ -9,14 +9,17 @@ const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
 
 // Bosh menyu (Reply Keyboard with Telegram Mini App web_app button)
-const getMainKeyboard = (siteUrl: string = SITE_URL) => ({
-    keyboard: [
-        [{ text: "🛍 Do'konni ochish (Mini App)", web_app: { url: siteUrl } }],
-        [{ text: "📱 Ro'yxatdan o'tish / Saytga kirish" }, { text: "📦 Mening buyurtmalarim" }],
-        [{ text: "💬 Operatorga yozish" }, { text: "❓ Savol-javob (FAQ)" }]
-    ],
-    resize_keyboard: true
-});
+const getMainKeyboard = (siteUrl: string = SITE_URL) => {
+    const webAppUrl = siteUrl.endsWith("/uz") ? siteUrl : `${siteUrl}/uz`;
+    return {
+        keyboard: [
+            [{ text: "🛍 Do'konni ochish (Mini App)", web_app: { url: webAppUrl } }],
+            [{ text: "📱 Ro'yxatdan o'tish / Saytga kirish" }, { text: "📦 Mening buyurtmalarim" }],
+            [{ text: "💬 Operatorga yozish" }, { text: "❓ Savol-javob (FAQ)" }]
+        ],
+        resize_keyboard: true
+    };
+};
 
 // Jarayonlarni bekor qilish tugmasi
 const CANCEL_KEYBOARD = {
@@ -136,6 +139,7 @@ export async function GET(req: Request) {
         const hookData = await hookRes.json();
 
         // 2. Telegram Mini App (Do'kon ochish menyu tugmasi)
+        const webAppUrl = siteUrl.endsWith("/uz") ? siteUrl : `${siteUrl}/uz`;
         const menuRes = await fetch(`${TELEGRAM_API}/setChatMenuButton`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -143,7 +147,7 @@ export async function GET(req: Request) {
                 menu_button: {
                     type: "web_app",
                     text: "🛍 Do'kon",
-                    web_app: { url: siteUrl }
+                    web_app: { url: webAppUrl }
                 }
             })
         });

@@ -25,12 +25,21 @@ export default function PWAInstallPrompt() {
             return;
         }
 
+        // Skip if inside Telegram WebApp
+        if ((window as any).Telegram?.WebApp?.initData || navigator.userAgent.includes("Telegram")) {
+            return;
+        }
+
+        let isDismissed: string | null = null;
+        try {
+            isDismissed = localStorage.getItem('pwa-banner-dismissed');
+        } catch {}
+
         // 2. Browser Install Prompt (Android/Chrome)
         const handleBeforeInstallPrompt = (e: any) => {
             e.preventDefault();
             setDeferredPrompt(e);
             
-            const isDismissed = localStorage.getItem('pwa-banner-dismissed');
             if (!isDismissed) {
                 setIsVisible(true);
             }
@@ -39,7 +48,6 @@ export default function PWAInstallPrompt() {
         window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
         // 3. Force visibility for mobile trial
-        const isDismissed = localStorage.getItem('pwa-banner-dismissed');
         if (!isDismissed && !isStandalone) {
             const isMobile = isIosDevice || /Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -67,7 +75,7 @@ export default function PWAInstallPrompt() {
 
     const handleDismiss = () => {
         setIsVisible(false);
-        localStorage.setItem('pwa-banner-dismissed', 'true');
+        try { localStorage.setItem('pwa-banner-dismissed', 'true'); } catch {}
     };
 
     if (isAppInstalled) return null;

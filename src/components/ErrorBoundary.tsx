@@ -56,17 +56,12 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
                     >
                         Qayta yuklash
                     </button>
-                    {process.env.NODE_ENV === "development" && this.state.error && (
-                        <details className="mt-8 text-left max-w-lg w-full">
-                            <summary className="text-xs font-bold text-gray-400 cursor-pointer uppercase tracking-widest">
-                                Xato tafsilotlari
-                            </summary>
-                            <pre className="mt-2 p-4 bg-gray-50 rounded-2xl text-xs text-red-600 overflow-auto max-h-40">
+                    {this.state.error && (
+                        <div className="mt-6 text-left max-w-lg w-full bg-red-50/70 p-3.5 rounded-2xl border border-red-200">
+                            <p className="text-[11px] font-mono text-red-600 font-semibold break-words">
                                 {this.state.error.message}
-                                {"\n"}
-                                {this.state.error.stack}
-                            </pre>
-                        </details>
+                            </p>
+                        </div>
                     )}
                 </div>
             );

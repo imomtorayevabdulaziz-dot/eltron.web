@@ -76,13 +76,18 @@ export default function AppWrapper({ children, lang }: { children: React.ReactNo
     // Real-time Activity & Action Tracking
     useEffect(() => {
         let intervalId: any;
-        const sessionId = user?.phone || (() => {
-            const stored = localStorage.getItem("shop_visitor_id");
-            if (stored) return stored;
-            const newId = "visitor_" + Math.random().toString(36).substring(2, 11);
-            localStorage.setItem("shop_visitor_id", newId);
-            return newId;
-        })();
+        let sessionId = user?.phone || "";
+        if (!sessionId) {
+            try {
+                sessionId = localStorage.getItem("shop_visitor_id") || "";
+                if (!sessionId) {
+                    sessionId = "visitor_" + Math.random().toString(36).substring(2, 11);
+                    localStorage.setItem("shop_visitor_id", sessionId);
+                }
+            } catch {
+                sessionId = "visitor_guest";
+            }
+        }
 
         const getFriendlyPath = (path: string) => {
             if (path === "/") return "Asosiy sahifa";

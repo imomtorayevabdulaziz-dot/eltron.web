@@ -118,6 +118,7 @@ import MetaPixel from "@/components/MetaPixel";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getShopSettingsServer } from "@/lib/shop-settings.server";
+import Script from "next/script";
 import {
     formatTelegramLink,
     formatInstagramLink,
@@ -240,7 +241,7 @@ export default async function RootLayout({
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="telegram:header_color" content="#2d6e3e" />
-                <script src="https://telegram.org/js/telegram-web-app.js" async></script>
+                <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
 
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png" />

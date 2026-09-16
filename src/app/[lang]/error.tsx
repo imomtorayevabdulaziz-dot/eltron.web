@@ -39,15 +39,21 @@ export default function Error({
 
         <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
           <button
-            onClick={() => reset()}
-            className="flex items-center justify-center gap-2 bg-[#2D6E3E] hover:bg-[#235831] text-white px-6 py-3 rounded-full font-semibold text-xs active:scale-95 transition-transform duration-150 will-change-transform shadow-sm"
+            onClick={() => {
+              try { reset(); } catch {}
+              window.location.reload();
+            }}
+            className="flex items-center justify-center gap-2 bg-[#2D6E3E] hover:bg-[#235831] text-white px-6 py-3 rounded-full font-semibold text-xs active:scale-95 transition-transform duration-150 will-change-transform shadow-sm cursor-pointer"
           >
             <RotateCcw size={15} />
-            <span>{lang === 'ru' ? 'Повторить' : 'Qayta urinish'}</span>
+            <span>{lang === 'ru' ? 'Повторить (Обновить)' : 'Qayta urinish (Yangilash)'}</span>
           </button>
           
           <Link
             href={`/${lang}`}
+            onClick={() => {
+              window.location.href = `/${lang}`;
+            }}
             className="flex items-center justify-center gap-2 bg-[rgba(15,20,16,0.05)] hover:bg-[rgba(15,20,16,0.08)] text-[#111612] px-6 py-3 rounded-full font-semibold text-xs active:scale-95 transition-transform duration-150 will-change-transform"
           >
             <Home size={15} />
@@ -55,11 +61,11 @@ export default function Error({
           </Link>
         </div>
 
-        {process.env.NODE_ENV === 'development' && (
-          <pre className="mt-8 p-4 bg-red-50/50 rounded-2xl text-left text-[11px] text-red-600 overflow-auto max-w-full font-mono border border-red-500/10">
-            {error.message}
-            {error.stack}
-          </pre>
+        {error?.message && (
+          <div className="mt-6 p-3.5 bg-red-50/80 border border-red-200/80 rounded-2xl text-left max-w-full overflow-auto">
+            <p className="text-[11px] font-mono text-red-600 font-semibold break-words">{error.message}</p>
+            {error.digest && <p className="text-[10px] font-mono text-gray-400 mt-1">Kod: {error.digest}</p>}
+          </div>
         )}
       </div>
     </div>

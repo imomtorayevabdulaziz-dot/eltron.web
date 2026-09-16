@@ -11,9 +11,10 @@ type Step = "splash" | "lang" | "onboard" | "done";
 
 function isPWA() {
     if (typeof window === "undefined") return false;
+    // Telegram WebApp yoki Mini App ichida bo'lsa PWA flow ishlamaydi
+    if ((window as any).Telegram?.WebApp?.initData || navigator.userAgent.includes("Telegram")) return false;
     return window.matchMedia("(display-mode: standalone)").matches
-        || (window.navigator as any).standalone === true
-        || document.referrer.includes("android-app://");
+        || (window.navigator as any).standalone === true;
 }
 
 // ── Splash ──────────────────────────────────────────────────────────────────
@@ -225,8 +226,12 @@ export default function PWAFlow() {
         if (!isPWA()) return;
         if (pathname.startsWith("/uz/admin") || pathname.startsWith("/ru/admin")) return;
 
-        const langPicked = localStorage.getItem(LANG_KEY);
-        const onboarded = localStorage.getItem(ONBOARDED_KEY);
+        let langPicked: string | null = null;
+        let onboarded: string | null = null;
+        try {
+            langPicked = localStorage.getItem(LANG_KEY);
+            onboarded = localStorage.getItem(ONBOARDED_KEY);
+        } catch {}
 
         if (!langPicked) {
             setStep("splash");
@@ -239,15 +244,20 @@ export default function PWAFlow() {
     }, [pathname]);
 
     const afterSplash = () => {
-        const langPicked = localStorage.getItem(LANG_KEY);
+        let langPicked: string | null = null;
+        let onboarded: string | null = null;
+        try {
+            langPicked = localStorage.getItem(LANG_KEY);
+            onboarded = localStorage.getItem(ONBOARDED_KEY);
+        } catch {}
+
         if (!langPicked) { setStep("lang"); return; }
-        const onboarded = localStorage.getItem(ONBOARDED_KEY);
         if (!onboarded) { setPickedLang(langPicked as "uz" | "ru"); setStep("onboard"); return; }
         setStep("done");
     };
 
     const afterLang = (lang: "uz" | "ru") => {
-        localStorage.setItem(LANG_KEY, lang);
+        try { localStorage.setItem(LANG_KEY, lang); } catch {}
         setPickedLang(lang);
         setLanguage(lang);
         if (typeof document !== "undefined") {
@@ -261,7 +271,7 @@ export default function PWAFlow() {
     };
 
     const afterOnboard = () => {
-        localStorage.setItem(ONBOARDED_KEY, "1");
+        try { localStorage.setItem(ONBOARDED_KEY, "1"); } catch {}
         setStep("done");
     };
 
