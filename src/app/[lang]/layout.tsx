@@ -267,6 +267,7 @@ export default async function RootLayout({
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
                 />
+            </head>
             <body className="bg-[#FAFAF6] text-[#111612] antialiased font-sans w-full max-w-full min-h-screen selection:bg-[#2D6E3E]/15 selection:text-[#2D6E3E]">
                 {/* 🛡️ 0-MS PURE BLACK SCREEN (ZERO FLASH GUARANTEE) */}
                 <div id="boot-curtain" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: '#000000', zIndex: 99999998, pointerEvents: 'all' }} />
