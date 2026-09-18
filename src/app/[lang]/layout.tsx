@@ -267,8 +267,20 @@ export default async function RootLayout({
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
                 />
-            </head>
             <body className="bg-[#FAFAF6] text-[#111612] antialiased font-sans w-full max-w-full min-h-screen selection:bg-[#2D6E3E]/15 selection:text-[#2D6E3E]">
+                {/* 🛡️ 0-MS PURE BLACK SCREEN (ZERO FLASH GUARANTEE) */}
+                <div id="boot-curtain" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: '#000000', zIndex: 99999998, pointerEvents: 'all' }} />
+                <script dangerouslySetInnerHTML={{ __html: `
+                    try {
+                        var q = window.location.search || '';
+                        var isForce = q.indexOf('boot=true') !== -1 || q.indexOf('splash=1') !== -1;
+                        var shown = sessionStorage.getItem('eltron_boot_shown');
+                        if (!isForce && shown === '1') {
+                            var c = document.getElementById('boot-curtain');
+                            if (c) c.style.display = 'none';
+                        }
+                    } catch(e) {}
+                `}} />
                 <a href="#main-content" className="skip-to-main">
                     Asosiy kontentga o&apos;tish
                 </a>
