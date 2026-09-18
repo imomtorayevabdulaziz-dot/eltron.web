@@ -41,9 +41,15 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
       // ignore
     }
 
-    // Select correct video based on viewport aspect/width
-    const isWide = window.innerWidth >= 768;
-    const activeSrc = isWide ? "/videos/eltron-boot-desktop.mp4" : "/videos/eltron-boot-mobile.mp4";
+    // Select correct video based on viewport aspect ratio and device:
+    // Landscape desktop/laptop (width >= 768 and width > height) -> desktop horizontal video (16:9)
+    // Portrait phone/Telegram Web App or narrow viewport -> mobile vertical video (9:16)
+    const isLandscape =
+      window.innerWidth >= 768 &&
+      window.innerWidth > window.innerHeight &&
+      !/Android|iPhone|iPod/i.test(navigator.userAgent);
+
+    const activeSrc = isLandscape ? "/videos/eltron-boot-desktop.mp4" : "/videos/eltron-boot-mobile.mp4";
     setVideoSrc(activeSrc);
 
     const video = videoRef.current;
