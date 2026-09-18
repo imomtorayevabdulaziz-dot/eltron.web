@@ -1,3 +1,4 @@
+// 🌟 Eltron Luxury Video Startup Engine v2.1
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
