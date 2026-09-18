@@ -495,3 +495,45 @@ body.affiliate-active footer {
 .animate-shimmer {
   animation: eltron-shimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
+/* ─── Eltron 10s Sword Light Slash Keyframes ─── */
+@keyframes sword-slash-ray {
+  0% {
+    transform: translate3d(-180%, -180%, 0) rotate(45deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(180%, 180%, 0) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.animate-sword-slash {
+  animation: sword-slash-ray 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gold-flare-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0.6;
+  }
+}
+
+.animate-gold-flare {
+  animation: gold-flare-pulse 0.9s ease-out forwards;
+}
+

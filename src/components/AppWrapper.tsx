@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 const PWAInstallPrompt = dynamic(() => import("@/components/PWAInstallPrompt"), { ssr: false });
 const PWAFlow = dynamic(() => import("@/components/pwa/PWAFlow"), { ssr: false });
-const EltronBootSplash = dynamic(() => import("@/components/common/EltronBootSplash"), { ssr: false });
+import EltronBootSplash from "@/components/common/EltronBootSplash";
 
 import Link from "next/link";
 import { MessageSquare, CheckCircle, AlertCircle, Info } from "lucide-react";
