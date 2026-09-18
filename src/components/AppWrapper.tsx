@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 const PWAInstallPrompt = dynamic(() => import("@/components/PWAInstallPrompt"), { ssr: false });
 const PWAFlow = dynamic(() => import("@/components/pwa/PWAFlow"), { ssr: false });
+const EltronBootSplash = dynamic(() => import("@/components/common/EltronBootSplash"), { ssr: false });
 
 import Link from "next/link";
 import { MessageSquare, CheckCircle, AlertCircle, Info } from "lucide-react";
@@ -350,6 +351,9 @@ export default function AppWrapper({ children, lang }: { children: React.ReactNo
             mx-auto ${isReels ? 'bg-black' : 'bg-white'} min-h-screen relative w-full max-w-full lg:max-w-[1600px] overflow-x-clip
             ${showNav ? (isReels ? '' : (pathWithoutLocale === '/' || isProductDetail) ? 'md:pt-28' : 'pt-16 md:pt-28') : ''}
         `}>
+            {/* 🌟 Luxury Startup Boot Animation & Sound (Samsung / Apple style) */}
+            <EltronBootSplash />
+
             <ConnectivityListener />
             <DynamicFavicon />
             <SmartTabTitle />
