@@ -22,9 +22,10 @@ export default function DynamicFavicon() {
             document.head.appendChild(link);
         }
 
-        // Agar savat bo'sh bo'lsa, to'g'ridan-to'g'ri haqiqiy /favicon.ico ni qo'yamiz
+        // Agar savat bo'sh bo'lsa, to'g'ridan-to'g'ri haqiqiy Eltron oltin emblemasini qo'yamiz
         if (cartCount === 0) {
-            link.href = "/favicon.ico";
+            link.href = "/favicon-120x120.png?v=eltron2";
+            link.type = "image/png";
             return;
         }
 
