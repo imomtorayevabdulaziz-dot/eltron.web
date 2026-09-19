@@ -810,7 +810,7 @@ export const SingleReel = ({
 
                     <div className="flex items-center gap-1.5 min-w-0">
                         <span className="text-[13.5px] font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)] truncate">
-                            velari.uz
+                            eltron.uz
                         </span>
                         <CheckCircle2 size={13} className="text-[#0095F6] fill-[#0095F6] shrink-0" />
                     </div>
@@ -847,7 +847,7 @@ export const SingleReel = ({
                     <div className="text-[13px] text-white/95 leading-relaxed drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] font-normal pr-2">
                         <p className={isCaptionExpanded ? "" : "line-clamp-2"}>
                             {reelTitle}
-                            <span className="text-white/60 text-xs ml-1 font-medium">#velari #tashkent #gadgets</span>
+                            <span className="text-white/60 text-xs ml-1 font-medium">#eltron #tashkent #gadgets</span>
                         </p>
                         {reelTitle.length > 60 && (
                             <button
@@ -871,8 +871,8 @@ export const SingleReel = ({
                     <Music size={12} className="text-white/90 shrink-0 animate-pulse" />
                     <div className="overflow-hidden whitespace-nowrap text-[11px] text-white/90 font-medium">
                         <div className="animate-ig-marquee flex gap-6">
-                            <span>Velari • Original audio • velari.uz • Asl audio</span>
-                            <span>Velari • Original audio • velari.uz • Asl audio</span>
+                            <span>Eltron • Original audio • eltron.uz • Asl audio</span>
+                            <span>Eltron • Original audio • eltron.uz • Asl audio</span>
                         </div>
                     </div>
                 </div>

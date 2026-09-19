@@ -46,8 +46,9 @@ export const metadata = {
     metadataBase: new URL("https://eltron-web.vercel.app"),
     alternates: {
         languages: {
-            'uz-UZ': 'https://eltron-web.vercel.app/uz',
+            'uz-UZ': 'https://eltron-web.vercel.app',
             'ru-RU': 'https://eltron-web.vercel.app/ru',
+            'x-default': 'https://eltron-web.vercel.app',
         },
     },
     robots: {

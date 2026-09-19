@@ -547,7 +547,7 @@ export default function AbandonedCartsPage() {
                                     </div>
                                 )}
                                 <p className="text-[11px] text-gray-500 italic">
-                                    🏃‍♂️ Mahsulotlar soni cheklangan, ularni hoziroq xarid qiling! 👉 https://velari.uz/uz/cart
+                                    🏃‍♂️ Mahsulotlar soni cheklangan, ularni hoziroq xarid qiling! 👉 https://eltron-web.vercel.app/cart
                                 </p>
                             </div>
                         </div>

@@ -6,12 +6,14 @@ import AboutClient from "./AboutClient";
 export async function generateMetadata({ params: { lang } }: { params: { lang: string } }): Promise<Metadata> {
     const language = (lang === 'ru' ? 'ru' : 'uz') as 'uz' | 'ru';
     const t = translations[language];
-    const baseUrl = 'https://velari.uz';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     const settings = await getShopSettingsServer();
-    const shopName = settings.name || 'Velari';
+    const shopName = settings.name || 'Eltron';
 
-    const title = `${t.aboutUs.title} | ${shopName} - O'zbekistonda №1 Premium Marketplace`;
-    const description = `${t.aboutUs.subtitle}. ${t.aboutUs.mainTitle}. ${shopName} market — O'zbekistonda sifatli elektronika va maishiy texnika do'koni.`;
+    const title = `${t.aboutUs.title} | ${shopName} - O'zbekistonda №1 Premium Do'kon`;
+    const description = `${t.aboutUs.subtitle}. ${t.aboutUs.mainTitle}. ${shopName} — O'zbekistonda sifatli elektronika va zamonaviy gadjetlar do'koni.`;
+
+    const canonicalUrl = lang === 'ru' ? `${baseUrl}/ru/about` : `${baseUrl}/about`;
 
     return {
         title: title,
@@ -19,17 +21,17 @@ export async function generateMetadata({ params: { lang } }: { params: { lang: s
         openGraph: {
             title: title,
             description: description,
-            url: `${baseUrl}/${lang}/about`,
+            url: canonicalUrl,
             siteName: shopName,
             type: 'website',
             locale: lang === 'ru' ? 'ru_RU' : 'uz_UZ',
         },
         alternates: {
-            canonical: `${baseUrl}/${lang}/about`,
+            canonical: canonicalUrl,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/about`,
+                'uz-UZ': `${baseUrl}/about`,
                 'ru-RU': `${baseUrl}/ru/about`,
-                'x-default': `${baseUrl}/uz/about`,
+                'x-default': `${baseUrl}/about`,
             },
         },
     };

@@ -126,7 +126,7 @@ export async function GET(req: NextRequest) {
                                 fontSize: '18px',
                                 fontWeight: 'bold'
                             }}>
-                                velari.uz • Global Electronics
+                                eltron.uz • Global Electronics
                             </div>
                         </div>
                     </div>

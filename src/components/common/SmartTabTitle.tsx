@@ -7,8 +7,8 @@ import { useStore } from "@/store/store";
  * SmartTabTitle (Aqlli / Jonli Yuguruvchi Satr)
  * 1. Foydalanuvchi saytda turganda: sarlavha sokin, original holatda turadi.
  * 2. Foydalanuvchi boshqa vkladkaga o'tganda (tabdan chiqqanda):
- *    - Savatda tovar bo'lsa: "🛒 Savatingizda X ta mahsulot qolib ketdi! — Velari.uz — "
- *    - Savat bo'sh bo'lsa: "🎁 Yangi chegirmalarni o'tkazib yubormang! — Velari.uz — "
+ *    - Savatda tovar bo'lsa: "🛒 Savatingizda X ta mahsulot qolib ketdi! — Eltron — "
+ *    - Savat bo'sh bo'lsa: "🎁 Yangi chegirmalarni o'tkazib yubormang! — Eltron — "
  *    deb o'ngdan chapga silliq yugurib, mijozni saytga qaytaradi.
  * 3. Qaytib kelganda: yugurish darhol to'xtab, original sarlavha tiklanadi.
  */

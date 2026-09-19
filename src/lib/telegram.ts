@@ -192,9 +192,8 @@ export async function sendCartReminder(phone: string, items: any[], customNote?:
             ]
         };
 
-        // Find primary product image
         const firstValidImage = items.find((i: any) => i.image && i.image.startsWith("http"))?.image 
-            || (items[0]?.image ? `https://velari.uz${items[0].image}` : null);
+            || (items[0]?.image ? `${baseUrl}${items[0].image}` : null);
 
         // 1. Try sending with photo first
         if (firstValidImage && text.length <= 1000) {

@@ -7,7 +7,7 @@ import { getProductSlug } from '@/lib/slugify';
 // shuning uchun XML ni qo'lda generatsiya qilamiz.
 export const revalidate = 86400; // 24 soatda qayta generatsiya
 
-const BASE_URL = 'https://velari.uz';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
 
 // XML maxsus belgilarini ekranlash (& < > " ')
 function xmlEscape(value: string): string {
@@ -62,7 +62,7 @@ export async function GET() {
                 if (images.length === 0) continue;
 
                 const slug = getProductSlug(product, 'uz');
-                const loc = `${BASE_URL}/uz/products/${slug}`;
+                const loc = `${BASE_URL}/products/${slug}`;
 
                 // image:title — Yandex Images rasm-relevantligida ishlatadi (Google e'tiborsiz qoldiradi, zararsiz)
                 const title = (product.name_uz || product.name || '').trim();

@@ -122,24 +122,26 @@ const ICONS: Record<string, any> = { return: RotateCcw, shield: ShieldCheck, mon
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
     const lang = (params.lang === "ru" ? "ru" : "uz") as Lang;
-    const baseUrl = "https://velari.uz";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     const title = lang === "ru"
-        ? "Условия возврата и обмена товаров — Velari Market"
-        : "Tovarlarni qaytarish va almashtirish shartlari — Velari Market";
+        ? "Условия возврата и обмена товаров — Eltron"
+        : "Tovarlarni qaytarish va almashtirish shartlari — Eltron";
     const description = lang === "ru"
-        ? "Официальная политика возврата Velari Market: возврат в течение 14 дней, заводской брак, сроки возврата денег 1–7 дней. Согласно Закону РУз о защите прав потребителей."
-        : "Velari Market rasmiy qaytarish siyosati: 14 kun ichida qaytarish, zavod braki, pulni 1–7 ish kunida qaytarish. O'zbekiston iste'molchi huquqlari qonuniga muvofiq.";
+        ? "Официальная политика возврата Eltron: возврат в течение 14 дней, заводской брак, сроки возврата денег 1–7 дней. Согласно Закону РУз о защите прав потребителей."
+        : "Eltron rasmiy qaytarish siyosati: 14 kun ichida qaytarish, zavod braki, pulni 1–7 ish kunida qaytarish. O'zbekiston iste'molchi huquqlari qonuniga muvofiq.";
+
+    const canonicalUrl = lang === "ru" ? `${baseUrl}/ru/return-policy` : `${baseUrl}/return-policy`;
 
     return {
         title,
         description,
-        openGraph: { title, description, url: `${baseUrl}/${lang}/return-policy`, siteName: "Velari", type: "website", locale: lang === "ru" ? "ru_RU" : "uz_UZ" },
+        openGraph: { title, description, url: canonicalUrl, siteName: "Eltron", type: "website", locale: lang === "ru" ? "ru_RU" : "uz_UZ" },
         alternates: {
-            canonical: `${baseUrl}/${lang}/return-policy`,
+            canonical: canonicalUrl,
             languages: {
-                "uz-UZ": `${baseUrl}/uz/return-policy`,
+                "uz-UZ": `${baseUrl}/return-policy`,
                 "ru-RU": `${baseUrl}/ru/return-policy`,
-                "x-default": `${baseUrl}/uz/return-policy`,
+                "x-default": `${baseUrl}/return-policy`,
             },
         },
         robots: { index: true, follow: true },

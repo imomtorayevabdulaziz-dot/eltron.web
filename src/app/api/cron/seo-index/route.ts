@@ -37,12 +37,12 @@ export async function GET(req: Request) {
         }
 
         // 2. Yangilangan mahsulotlar uchun URL'larni yaratish
-        const baseUrl = "https://velari.uz";
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
         const updatedUrls: string[] = [];
 
         if (updatedProducts && updatedProducts.length > 0) {
             for (const product of updatedProducts) {
-                updatedUrls.push(`${baseUrl}/uz/products/${getProductSlug(product, 'uz')}`);
+                updatedUrls.push(`${baseUrl}/products/${getProductSlug(product, 'uz')}`);
                 updatedUrls.push(`${baseUrl}/ru/products/${getProductSlug(product, 'ru')}`);
             }
             results.updatedProducts = updatedProducts.length;
@@ -53,11 +53,11 @@ export async function GET(req: Request) {
 
         // 3. Asosiy sahifalarni har doim ping qilish
         const staticUrls = [
-            `${baseUrl}/uz`,
+            `${baseUrl}`,
             `${baseUrl}/ru`,
-            `${baseUrl}/uz/catalog`,
+            `${baseUrl}/catalog`,
             `${baseUrl}/ru/catalog`,
-            `${baseUrl}/uz/blog`,
+            `${baseUrl}/blog`,
             `${baseUrl}/ru/blog`,
         ];
 

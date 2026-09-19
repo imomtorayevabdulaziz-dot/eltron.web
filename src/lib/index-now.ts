@@ -1,6 +1,6 @@
 export async function submitToIndexNow(urlList: string[]) {
     const key = "6f9b4c2d8e1a4f3b8c5d9e2a7f0b1c3d";
-    const host = "velari.uz";
+    const host = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : "eltron-web.vercel.app";
 
     try {
         console.log(`Submitting ${urlList.length} URLs to IndexNow...`);

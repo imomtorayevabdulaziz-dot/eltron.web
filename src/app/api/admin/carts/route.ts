@@ -35,7 +35,7 @@ async function sendWebPushToPhone(phone: string, title: string, body: string, ur
 
     try {
         const webpush = (await import("web-push")).default;
-        webpush.setVapidDetails("mailto:admin@velari.uz", pubKey, privKey);
+        webpush.setVapidDetails("mailto:admin@eltron.uz", pubKey, privKey);
         
         const cleanPhone = phone.replace(/\D/g, "");
         const { data: tokens } = await supabaseAdmin

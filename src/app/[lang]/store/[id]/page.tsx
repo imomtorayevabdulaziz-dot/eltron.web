@@ -17,20 +17,23 @@ export async function generateMetadata({ params }: { params: { lang: string; id:
         notFound();
     }
 
-    const title = `${wh.name} | Velari`;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
+    const title = `${wh.name} | Eltron`;
     const description = wh.address 
         ? `${wh.name} do'konidagi barcha tovarlar. Manzil: ${wh.address}` 
         : `${wh.name} do'konidagi barcha mahsulotlar katalogi.`;
+
+    const canonicalUrl = lang === 'ru' ? `${siteUrl}/ru/store/${params.id}` : `${siteUrl}/store/${params.id}`;
 
     return {
         title,
         description,
         alternates: {
-            canonical: `https://velari.uz/${lang}/store/${params.id}`,
+            canonical: canonicalUrl,
             languages: {
-                "uz-UZ": `https://velari.uz/uz/store/${params.id}`,
-                "ru-RU": `https://velari.uz/ru/store/${params.id}`,
-                "x-default": `https://velari.uz/uz/store/${params.id}`,
+                "uz-UZ": `${siteUrl}/store/${params.id}`,
+                "ru-RU": `${siteUrl}/ru/store/${params.id}`,
+                "x-default": `${siteUrl}/store/${params.id}`,
             },
         },
     };

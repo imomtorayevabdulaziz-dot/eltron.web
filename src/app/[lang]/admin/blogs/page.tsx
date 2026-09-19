@@ -292,7 +292,7 @@ export default function AdminBlogs() {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">URL Slug (velari.uz/blog/...)</label>
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">URL Slug (eltron.uz/blog/...)</label>
                                     <input 
                                         type="text" 
                                         placeholder="masalan: iphone-15-sharhi"

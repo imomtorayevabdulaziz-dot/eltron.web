@@ -27,24 +27,25 @@ export async function generateMetadata({ params: { lang, slug } }: { params: { l
 
     const title = lang === 'uz' ? blog.title_uz : blog.title_ru;
     const description = (lang === 'uz' ? blog.excerpt_uz || blog.content_uz : blog.excerpt_ru || blog.content_ru).substring(0, 160);
-    const baseUrl = "https://velari.uz";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
+    const canonicalUrl = lang === 'ru' ? `${baseUrl}/ru/blog/${slug}` : `${baseUrl}/blog/${slug}`;
 
     return {
-        title: `${title} | Velari Insights`,
+        title: `${title} | Eltron Insights`,
         description,
         openGraph: {
             title,
             description,
-            url: `${baseUrl}/${lang}/blog/${slug}`,
+            url: canonicalUrl,
             images: [{ url: blog.image || "/og-image.png" }],
             type: 'article',
         },
         alternates: {
-            canonical: `${baseUrl}/${lang}/blog/${slug}`,
+            canonical: canonicalUrl,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/blog/${slug}`,
+                'uz-UZ': `${baseUrl}/blog/${slug}`,
                 'ru-RU': `${baseUrl}/ru/blog/${slug}`,
-                'x-default': `${baseUrl}/uz/blog/${slug}`,
+                'x-default': `${baseUrl}/blog/${slug}`,
             },
         },
     };
@@ -63,13 +64,13 @@ export default async function BlogPostPage({ params: { lang, slug } }: { params:
 
     if (!blogData) notFound();
     const blog = mapBlog(blogData);
-    const baseUrl = "https://velari.uz";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     const title = lang === 'uz' ? blog.title_uz : blog.title_ru;
     const description = lang === 'uz'
         ? (blog.excerpt_uz || blog.content_uz)
         : (blog.excerpt_ru || blog.content_ru);
     const image = blog.image?.startsWith('http') ? blog.image : `${baseUrl}${blog.image || '/og-image.png'}`;
-    const articleUrl = `${baseUrl}/${lang}/blog/${slug}`;
+    const articleUrl = lang === 'ru' ? `${baseUrl}/ru/blog/${slug}` : `${baseUrl}/blog/${slug}`;
     const blogJsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -79,8 +80,8 @@ export default async function BlogPostPage({ params: { lang, slug } }: { params:
         "image": [image],
         "datePublished": blog.created_at,
         "dateModified": blog.updated_at || blog.created_at,
-        "author": { "@type": "Organization", "name": "Velari Insights" },
-        "publisher": { "@type": "Organization", "name": "Velari" },
+        "author": { "@type": "Organization", "name": "Eltron Insights" },
+        "publisher": { "@type": "Organization", "name": "Eltron" },
     };
 
     // 2. Fetch Linked Products

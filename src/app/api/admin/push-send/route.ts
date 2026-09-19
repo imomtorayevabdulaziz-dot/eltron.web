@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     try {
         // web-push ni dynamic import qilamiz — bundling muammolarini oldini olish uchun
         const webpush = (await import("web-push")).default;
-        webpush.setVapidDetails("mailto:admin@velari.uz", pubKey, privKey);
+        webpush.setVapidDetails("mailto:admin@eltron.uz", pubKey, privKey);
         
         const { title, body, url } = await req.json();
 

@@ -2593,19 +2593,19 @@ function AdminProducts() {
                                                 </div>
                                                 <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-1">
                                                     <div className="flex items-center gap-1.5 text-[11px] text-gray-500 truncate">
-                                                        <span className="text-gray-700 font-medium">https://velari.uz</span>
+                                                        <span className="text-gray-700 font-medium">https://eltron.uz</span>
                                                         <span>›</span>
                                                         <span>products</span>
                                                         <span>›</span>
                                                         <span className="text-gray-400 truncate">{newProduct.name_uz ? getProductSlug(newProduct.name_uz) : 'product-slug'}</span>
                                                     </div>
                                                     <h4 className="text-sm font-semibold text-[#1a0dab] hover:underline cursor-pointer line-clamp-1 leading-snug">
-                                                        {newProduct.name_uz || newProduct.name || "Mahsulot nomi kiritilmagan"} - eng qulay narxda | Velari.uz
+                                                        {newProduct.name_uz || newProduct.name || "Mahsulot nomi kiritilmagan"} - eng qulay narxda | Eltron
                                                     </h4>
                                                     <p className="text-xs text-[#4d5156] line-clamp-2 leading-relaxed">
                                                         {newProduct.description_uz || newProduct.description
                                                             ? (newProduct.description_uz || newProduct.description)?.replace(/<[^>]*>?/gm, '').slice(0, 160) + "..."
-                                                            : "Tavsif yozilmagan. Mahsulot haqida ma'lumot, rasmlar, xususiyatlari va yetkazib berish xizmati bilan Velari online do'konida tanishing."}
+                                                            : "Tavsif yozilmagan. Mahsulot haqida ma'lumot, rasmlar, xususiyatlari va yetkazib berish xizmati bilan Eltron online do'konida tanishing."}
                                                     </p>
                                                     {sellingPrice > 0 && (
                                                         <div className="pt-1.5 flex items-center gap-2 text-[11px] text-emerald-700 font-bold">

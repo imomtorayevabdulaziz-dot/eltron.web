@@ -9,17 +9,18 @@ export const revalidate = 86400; // 24 soat Edge Cache (Vercel CPU tejamkorligi)
 
 export async function generateMetadata({ params: { lang } }: any): Promise<Metadata> {
     const t = translations[lang as 'uz' | 'ru'];
-    const baseUrl = 'https://velari.uz';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
+    const canonicalUrl = lang === 'ru' ? `${baseUrl}/ru/blog` : `${baseUrl}/blog`;
     
     return {
-        title: `${t.blog.title} | Velari`,
+        title: `${t.blog.title} | Eltron`,
         description: t.blog.subtitle,
         alternates: {
-            canonical: `${baseUrl}/${lang}/blog`,
+            canonical: canonicalUrl,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/blog`,
+                'uz-UZ': `${baseUrl}/blog`,
                 'ru-RU': `${baseUrl}/ru/blog`,
-                'x-default': `${baseUrl}/uz/blog`,
+                'x-default': `${baseUrl}/blog`,
             },
         },
     };

@@ -84,11 +84,11 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
     
     if (!product) {
         return {
-            title: "404 - Sahifa topilmadi | Velari",
+            title: "404 - Sahifa topilmadi | Eltron",
             robots: { index: false, follow: false },
         };
     }
-    const baseUrl = "https://velari.uz";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     const isRu = params.lang === 'ru';
 
     // Tilga mos canonical slug — UUID/artikul/eski-slug bilan kelsa ham
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
     const uzSlug = getProductSlug(product, 'uz');
     const ruSlug = getProductSlug(product, 'ru');
     const canonicalSlug = isRu ? ruSlug : uzSlug;
-    const canonicalUrl = `${baseUrl}/${params.lang}/products/${canonicalSlug}`;
+    const canonicalUrl = isRu ? `${baseUrl}/ru/products/${canonicalSlug}` : `${baseUrl}/products/${canonicalSlug}`;
 
     // Til bo'yicha nom (ru sahifa uchun ruscha nom — Yandex/Google ruscha qidiruvi uchun)
     const productName = isRu
@@ -117,7 +117,7 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
     ogUrl.searchParams.set('price', product.price.toString());
     ogUrl.searchParams.set('image', rawProductImage);
 
-    // Title template in layout.tsx already adds "| Velari", so don't add it here
+    // Title template in layout.tsx already adds "| Eltron", so don't add it here
     const title = isRu
         ? `${productName} - Цена, Рассрочка и Гарантия`
         : `${productName} - Narxi, Muddatli to'lov va Kafolat`;
@@ -132,7 +132,7 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
             title: title,
             description: description,
             url: canonicalUrl,
-            siteName: 'Velari',
+            siteName: 'Eltron',
             images: [
                 // ⚡ Birinchi o'rinda mahsulotning HAQIQIY rasmi — Google shu rasmni oladi
                 { url: rawProductImage, width: 800, height: 800, alt: productName },
@@ -152,15 +152,15 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
         alternates: {
             canonical: canonicalUrl,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/products/${uzSlug}`,
+                'uz-UZ': `${baseUrl}/products/${uzSlug}`,
                 'ru-RU': `${baseUrl}/ru/products/${ruSlug}`,
-                'x-default': `${baseUrl}/uz/products/${uzSlug}`,
+                'x-default': `${baseUrl}/products/${uzSlug}`,
             },
         },
         keywords: [
             product.name, 
             product.name_uz || "", 
-            "Velari", 
+            "Eltron", 
             "muddatli to'lov", 
             "bo'lib to'lash",
             "muddatli tolov",
@@ -175,8 +175,11 @@ export async function generateMetadata({ params }: { params: { lang: string, id:
 }
 
 function ProductDataWrapper({ params, product, canonicalSlug }: { params: { lang: string, id: string }, product: any, canonicalSlug: string }) {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
     // Canonical slug (JSON-LD offers.url uchun) — tilga mos, normallashtirilgan
-    const canonicalProductUrl = `https://velari.uz/${params.lang}/products/${canonicalSlug}`;
+    const canonicalProductUrl = params.lang === 'ru'
+        ? `${siteUrl}/ru/products/${canonicalSlug}`
+        : `${siteUrl}/products/${canonicalSlug}`;
 
     // Structured Data (Schema.org) for Google to understand this is a PRODUCT
     const productName = (params.lang === 'ru')
@@ -185,8 +188,8 @@ function ProductDataWrapper({ params, product, canonicalSlug }: { params: { lang
     
     // Ensure images are absolute URLs
     const productImages = (product.images && product.images.length > 0) 
-        ? product.images.map((img: string) => img.startsWith('http') ? img : `https://velari.uz${img}`)
-        : [product.image?.startsWith('http') ? product.image : `https://velari.uz${product.image}`];
+        ? product.images.map((img: string) => img.startsWith('http') ? img : `${siteUrl}${img}`)
+        : [product.image?.startsWith('http') ? product.image : `${siteUrl}${product.image}`];
 
     const ratingValue = Number(product.rating || product.avg_rating || 0);
     const reviewCount = Number(product.reviewCount || product.review_count || 0);
@@ -201,59 +204,39 @@ function ProductDataWrapper({ params, product, canonicalSlug }: { params: { lang
         "price": product.price,
         "itemCondition": "https://schema.org/NewCondition",
         "availability": inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-        "seller": { "@type": "Organization", "name": "Velari" },
+        "seller": {
+            "@type": "Organization",
+            "name": "Eltron"
+        }
     };
 
-    // Chegirma bo'lsa — Google eski narxni ham ko'rsatadi (crossed-out price)
-    if (oldPrice && oldPrice > product.price) {
-        offerBase.priceSpecification = [
-            {
-                "@type": "UnitPriceSpecification",
-                "priceType": "https://schema.org/ListPrice",
-                "price": oldPrice,
-                "priceCurrency": "UZS"
-            },
-            {
-                "@type": "UnitPriceSpecification",
-                "priceType": "https://schema.org/SalePrice",
-                "price": product.price,
-                "priceCurrency": "UZS"
-            }
-        ];
-    }
+    const offers = [offerBase];
 
     const jsonLd: any = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": productName,
         "image": productImages,
-        "description": (product.description_uz || product.description || '').substring(0, 500),
-        "sku": product.sku || product.article || product.id,
-        "mpn": product.model || product.article || product.id,
-        "offers": offerBase
+        "description": product.description || `${productName} eng qulay narxda xarid qiling`,
+        "sku": product.article || product.id,
+        "brand": {
+            "@type": "Brand",
+            "name": "Eltron"
+        },
+        "offers": offers.length === 1 ? offers[0] : offers
     };
 
-    // Real DB'dagi brand nomi bo'lsa — schema'ga kiritamiz
-    const realBrandName = product.brand_name || product.brand;
-    if (realBrandName) {
-        jsonLd.brand = {
-            "@type": "Brand",
-            "name": realBrandName
-        };
-    }
-
-    // AggregateRating — FAQAT haqiqiy review bo'lganda (Google policy)
-    if (reviewCount > 0 && ratingValue > 0) {
+    if (ratingValue > 0) {
         jsonLd.aggregateRating = {
             "@type": "AggregateRating",
             "ratingValue": ratingValue.toFixed(1),
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
+            "reviewCount": Math.max(reviewCount, 1)
         };
     }
 
     const language = params.lang || 'uz'; // Dynamic language for SEO indexing
+    const homeUrl = language === 'ru' ? `${siteUrl}/ru` : siteUrl;
+    const catalogUrl = language === 'ru' ? `${siteUrl}/ru/catalog` : `${siteUrl}/catalog`;
 
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",
@@ -263,19 +246,19 @@ function ProductDataWrapper({ params, product, canonicalSlug }: { params: { lang
                 "@type": "ListItem",
                 "position": 1,
                 "name": language === 'uz' ? "Bosh sahifa" : "Главная",
-                "item": `https://velari.uz/${language}`
+                "item": homeUrl
             },
             {
                 "@type": "ListItem",
                 "position": 2,
                 "name": language === 'uz' ? "Katalog" : "Каталог",
-                "item": `https://velari.uz/${language}/catalog`
+                "item": catalogUrl
             },
             {
                 "@type": "ListItem",
                 "position": 3,
                 "name": productName,
-                "item": `https://velari.uz/${language}/products/${canonicalSlug}`
+                "item": canonicalProductUrl
             }
         ]
     };
@@ -306,8 +289,8 @@ function ProductDataWrapper({ params, product, canonicalSlug }: { params: { lang
                 <h1 itemProp="name">{productName}</h1>
                 <nav aria-label="Breadcrumb">
                     <ol>
-                        <li><a href={`https://velari.uz/${language}`}>{language === 'uz' ? 'Bosh sahifa' : 'Главная'}</a></li>
-                        <li><a href={`https://velari.uz/${language}/catalog`}>{language === 'uz' ? 'Katalog' : 'Каталог'}</a></li>
+                        <li><a href={language === 'ru' ? '/ru' : '/'}>{language === 'uz' ? 'Bosh sahifa' : 'Главная'}</a></li>
+                        <li><a href={language === 'ru' ? '/ru/catalog' : '/catalog'}>{language === 'uz' ? 'Katalog' : 'Каталог'}</a></li>
                         <li>{productName}</li>
                     </ol>
                 </nav>

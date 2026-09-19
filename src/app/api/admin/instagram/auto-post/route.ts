@@ -6,7 +6,7 @@ import { getProductSlug } from '@/lib/slugify';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const BASE_URL = 'https://velari.uz';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
 const IG_ID = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID || '17841446090191717';
 const PAGE_TOKEN = process.env.INSTAGRAM_PAGE_ACCESS_TOKEN;
 

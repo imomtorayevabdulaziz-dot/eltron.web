@@ -4,7 +4,7 @@ import { getProductSlug } from "@/lib/slugify";
 
 export const revalidate = 86400; // 24 soatda bir yangilanadi
 
-const BASE_URL = "https://velari.uz";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
 
 function escapeXml(str: string): string {
     return str
@@ -94,8 +94,8 @@ ${pictureLines}
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
 <yml_catalog date="${now}">
   <shop>
-    <name>Velari</name>
-    <company>Velari</company>
+    <name>Eltron</name>
+    <company>Eltron</company>
     <url>${BASE_URL}</url>
     <currencies>
       <currency id="UZS" rate="1"/>

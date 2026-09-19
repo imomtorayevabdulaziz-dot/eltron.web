@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { productId, productIds, blogId, blogIds, categoryId, categoryIds } = body;
-        const baseUrl = 'https://velari.uz';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
         const urls: string[] = [];
 
         // 1. Handle Products
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         if (pIds.length > 0) {
             const { data: pData } = await supabaseAdmin.from("products").select("id, name, name_uz, name_ru, article").in("id", pIds.slice(0, 1000));
             pData?.forEach(p => {
-                urls.push(`${baseUrl}/uz/products/${getProductSlug(p, 'uz')}`);
+                urls.push(`${baseUrl}/products/${getProductSlug(p, 'uz')}`);
                 urls.push(`${baseUrl}/ru/products/${getProductSlug(p, 'ru')}`);
             });
         }
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         if (bIds.length > 0) {
             const { data: bData } = await supabaseAdmin.from("blogs").select("slug").in("id", bIds.slice(0, 1000));
             bData?.forEach(b => {
-                urls.push(`${baseUrl}/uz/blog/${b.slug}`);
+                urls.push(`${baseUrl}/blog/${b.slug}`);
                 urls.push(`${baseUrl}/ru/blog/${b.slug}`);
             });
         }
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
         if (cIds.length > 0) {
             const { data: cData } = await supabaseAdmin.from("categories").select("id, name, name_uz, name_ru").in("id", cIds.slice(0, 1000));
             cData?.forEach(cat => {
-                urls.push(`${baseUrl}/uz/catalog/${getCategorySlug(cat, 'uz')}`);
+                urls.push(`${baseUrl}/catalog/${getCategorySlug(cat, 'uz')}`);
                 urls.push(`${baseUrl}/ru/catalog/${getCategorySlug(cat, 'ru')}`);
             });
         }

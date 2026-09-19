@@ -4,7 +4,7 @@ import { getProductSlug } from "@/lib/slugify";
 
 export const revalidate = 86400;
 
-const BASE_URL = "https://velari.uz";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://eltron-web.vercel.app";
 
 function esc(str: string): string {
     return (str || "")
@@ -66,8 +66,8 @@ export async function GET() {
             const title = esc(p.name_ru || p.name_uz || p.name || "");
             const desc = esc((p.description_ru || p.description || title).substring(0, 5000));
             
-            // Brand: real brand nomidan olamiz, topilmasa "Velari"
-            const brandName = (p.brand_id ? brandMap.get(p.brand_id) : null) || "Velari";
+            // Brand: real brand nomidan olamiz, topilmasa "Eltron"
+            const brandName = (p.brand_id ? brandMap.get(p.brand_id) : null) || "Eltron";
             const brand = esc(brandName);
 
             const catPath = esc(getCategoryPath(p.category_id));
@@ -120,9 +120,9 @@ ${salePriceLine ? salePriceLine + "\n" : ""}\
         const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>Velari — Premium Electronics</title>
+    <title>Eltron — Premium Electronics</title>
     <link>${BASE_URL}</link>
-    <description>Velari — O'zbekistondagi premium texnika do'koni</description>
+    <description>Eltron — O'zbekistondagi premium texnika do'koni</description>
     <lastBuildDate>${now}</lastBuildDate>
 ${items}
   </channel>

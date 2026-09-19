@@ -5,7 +5,7 @@ import { getProductSlug } from '@/lib/slugify';
 export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // 24 soatda kesh yangilanadi
 
-const BASE_URL = 'https://velari.uz';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eltron-web.vercel.app';
 
 function escapeCdata(text: string = ''): string {
   return text.replace(/\]\]>/g, ']]&gt;');
@@ -65,12 +65,12 @@ export async function GET(req: NextRequest) {
       const title = (lang === 'ru' ? (p.name_ru || p.name || p.name_uz) : (p.name_uz || p.name || p.name_ru)) || 'Mahsulot';
       const description = (lang === 'ru' ? (p.description_ru || p.description || p.description_uz) : (p.description_uz || p.description || p.description_ru)) || title;
       const slug = getProductSlug(p);
-      const link = `${BASE_URL}/${lang}/products/${slug}`;
+      const link = lang === 'uz' ? `${BASE_URL}/products/${slug}` : `${BASE_URL}/ru/products/${slug}`;
       const mainImage = p.image || (Array.isArray(p.images) && p.images[0]) || '';
       
       if (!mainImage) continue; // Meta requires main image
 
-      const brand = brandMap[p.brand_id] || 'Velari';
+      const brand = brandMap[p.brand_id] || 'Eltron';
       const isAvailable = (p.stock || 0) > 0 ? 'in stock' : 'out of stock';
       
       const priceVal = p.price || 0;
@@ -116,9 +116,9 @@ export async function GET(req: NextRequest) {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>Velari Market Meta Product Feed (${lang.toUpperCase()})</title>
+    <title>Eltron Meta Product Feed (${lang.toUpperCase()})</title>
     <link>${BASE_URL}</link>
-    <description>Velari Market Products Catalog Feed for Meta Facebook/Instagram Commerce</description>
+    <description>Eltron Products Catalog Feed for Meta Facebook/Instagram Commerce</description>
     ${itemsXml}
   </channel>
 </rss>`;
