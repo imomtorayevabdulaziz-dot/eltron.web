@@ -33,16 +33,16 @@ export const metadata = {
     },
     icons: {
         icon: [
-            { url: "/favicon-120x120.png?v=eltron2", sizes: "120x120", type: "image/png" },
-            { url: "/favicon.png?v=eltron2", sizes: "120x120", type: "image/png" },
-            { url: "/favicon.ico?v=eltron2", sizes: "any" },
-            { url: "/icons/icon-192x192.png?v=eltron2", sizes: "192x192", type: "image/png" },
-            { url: "/icons/icon-512x512.png?v=eltron2", sizes: "512x512", type: "image/png" },
+            { url: "/icons/eltron-favicon.png?v=eltron3", sizes: "120x120", type: "image/png" },
+            { url: "/icons/icon-192x192.png?v=eltron3", sizes: "192x192", type: "image/png" },
+            { url: "/icons/icon-512x512.png?v=eltron3", sizes: "512x512", type: "image/png" },
+            { url: "/favicon-120x120.png?v=eltron3", sizes: "120x120", type: "image/png" },
+            { url: "/favicon.png?v=eltron3", type: "image/png" },
         ],
         apple: [
-            { url: "/apple-touch-icon.png?v=eltron2", sizes: "180x180", type: "image/png" },
+            { url: "/apple-touch-icon.png?v=eltron3", sizes: "180x180", type: "image/png" },
         ],
-        shortcut: "/favicon-120x120.png?v=eltron2",
+        shortcut: "/icons/eltron-favicon.png?v=eltron3",
     },
     metadataBase: new URL("https://eltron-web.vercel.app"),
     alternates: {

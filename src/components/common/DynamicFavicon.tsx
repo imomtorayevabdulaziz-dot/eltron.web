@@ -3,6 +3,31 @@
 import { useEffect } from "react";
 import { useStore } from "@/store/store";
 
+const ELTRON_ICON_URL = "/icons/eltron-favicon.png?v=eltron3";
+
+function applyFavicon(url: string) {
+    if (typeof document === "undefined") return;
+    try {
+        const existing = document.querySelectorAll("link[rel*='icon']");
+        existing.forEach((el) => el.remove());
+
+        const link = document.createElement("link");
+        link.rel = "shortcut icon";
+        link.type = "image/png";
+        link.href = url;
+        document.head.appendChild(link);
+
+        const linkIcon = document.createElement("link");
+        linkIcon.rel = "icon";
+        linkIcon.type = "image/png";
+        linkIcon.sizes = "120x120";
+        linkIcon.href = url;
+        document.head.appendChild(linkIcon);
+    } catch (e) {
+        console.error("Failed to update favicon:", e);
+    }
+}
+
 /**
  * DynamicFavicon
  * Eltron rasmiy oltin emblemasidan foydalanadi va
@@ -15,23 +40,15 @@ export default function DynamicFavicon() {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-        if (!link) {
-            link = document.createElement("link");
-            link.rel = "shortcut icon";
-            document.head.appendChild(link);
-        }
-
-        // Agar savat bo'sh bo'lsa, to'g'ridan-to'g'ri haqiqiy Eltron oltin emblemasini qo'yamiz
+        // Har doim birinchi bo'lib rasmiy oltin Eltron emblemasini o'rnatamiz
         if (cartCount === 0) {
-            link.href = "/favicon-120x120.png?v=eltron2";
-            link.type = "image/png";
+            applyFavicon(ELTRON_ICON_URL);
             return;
         }
 
-        // Savatda mahsulot bo'lsa, rasmiy oltin logotip ustiga qizil badge chizamiz
+        // Savatda mahsulot bo'lsa, rasmiy oltin logotip ustiga jonli qizil nishon chizamiz
         const img = new Image();
-        img.src = "/favicon-120x120.png";
+        img.src = "/icons/eltron-favicon.png?v=eltron3";
         img.crossOrigin = "anonymous";
         img.onload = () => {
             const size = 64;
@@ -68,9 +85,7 @@ export default function DynamicFavicon() {
             ctx.textBaseline = "middle";
             ctx.fillText(cartCount > 9 ? "9+" : cartCount.toString(), badgeX, badgeY + 0.5);
 
-            if (link) {
-                link.href = canvas.toDataURL("image/png");
-            }
+            applyFavicon(canvas.toDataURL("image/png"));
         };
     }, [cartCount]);
 
