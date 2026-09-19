@@ -55,16 +55,19 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
     const video = videoRef.current;
     if (video) {
       video.src = activeSrc;
+      video.muted = false; // Default: Sound ON!
       video.load();
 
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
+            // Autoplay with sound allowed!
+            setIsMuted(false);
             setAutoplayBlocked(false);
           })
           .catch(() => {
-            // If unmuted autoplay blocked by browser policy, play muted and prompt user
+            // If browser policy blocks unmuted autoplay on cold start, play muted to prevent video freezing
             video.muted = true;
             setIsMuted(true);
             setAutoplayBlocked(true);
@@ -133,7 +136,7 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
   };
 
   const handleUserGesture = () => {
-    // Unmute upon any tap or click if autoplay was restricted
+    // If sound was blocked by browser policy on load, unmute immediately upon first screen tap/click
     if (autoplayBlocked && videoRef.current) {
       videoRef.current.muted = false;
       setIsMuted(false);
@@ -147,7 +150,7 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
       const nextMuted = !videoRef.current.muted;
       videoRef.current.muted = nextMuted;
       setIsMuted(nextMuted);
-      if (!nextMuted && autoplayBlocked) {
+      if (!nextMuted) {
         setAutoplayBlocked(false);
       }
     }
@@ -173,42 +176,8 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
         background: "#000000",
       }}
     >
-      {/* TOP HEADER CONTROLS */}
-      <div className="w-full max-w-5xl px-6 pt-6 flex items-center justify-between z-30">
-        {/* Sound Toggle */}
-        <button
-          onClick={toggleMute}
-          aria-label="Toggle sound"
-          className={`group flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-xl border transition-all duration-300 ${
-            autoplayBlocked
-              ? "bg-gradient-to-r from-[#d4af37]/30 to-[#aa8010]/30 border-[#d4af37]/70 text-[#fcedb6] animate-pulse shadow-[0_0_15px_rgba(212,175,55,0.5)]"
-              : "bg-white/10 hover:bg-white/20 border-white/15 text-white/80 hover:text-white"
-          }`}
-        >
-          {isMuted ? (
-            <VolumeX className="w-4 h-4 text-red-400" />
-          ) : (
-            <Volume2 className="w-4 h-4 text-[#fcedb6] group-hover:scale-110 transition-transform" />
-          )}
-          <span className="text-[11px] font-medium tracking-wider uppercase">
-            {autoplayBlocked ? "Ovozni yoqish 🔊" : isMuted ? "Ovozsiz" : "Ovozli"}
-          </span>
-        </button>
-
-        {/* Skip Button */}
-        <button
-          onClick={handleSkip}
-          className="group flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-xl border border-white/15 text-white/70 hover:text-white transition-all duration-200"
-        >
-          <span className="text-[11px] font-medium tracking-wider uppercase">O'tkazish</span>
-          <span className="text-xs text-white/50 group-hover:text-white/90 group-hover:translate-x-0.5 transition-all">
-            &rarr;
-          </span>
-        </button>
-      </div>
-
-      {/* CENTER VIDEO CONTAINER */}
-      <div className="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden">
+      {/* 🎬 FULLSCREEN BORDERLESS VIDEO BACKDROP (Zero black bars, 100% edge-to-edge) */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-10 bg-black">
         <video
           ref={videoRef}
           src={videoSrc}
@@ -217,17 +186,63 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleVideoEnded}
-          className="w-full h-full object-contain md:max-w-5xl md:max-h-[82vh] pointer-events-none select-none"
+          className="w-full h-full object-cover select-none pointer-events-none"
           style={{
             backgroundColor: "#000000",
           }}
         />
       </div>
 
-      {/* BOTTOM PROGRESS & STATUS BAR */}
-      <div className="w-full max-w-md px-8 pb-8 flex flex-col items-center z-30">
+      {/* TOP HEADER CONTROLS (Floating Overlay) */}
+      <div
+        className="relative w-full max-w-5xl px-6 pt-6 flex items-center justify-between z-30 pointer-events-auto"
+        style={{
+          paddingTop: "max(1.5rem, env(safe-area-inset-top))",
+        }}
+      >
+        {/* Sound Toggle (Defaults to sound ON, allows muting) */}
+        <button
+          onClick={toggleMute}
+          aria-label="Toggle sound"
+          className={`group flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-xl border transition-all duration-300 ${
+            autoplayBlocked
+              ? "bg-gradient-to-r from-[#d4af37]/30 to-[#aa8010]/30 border-[#d4af37]/70 text-[#fcedb6] animate-pulse shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+              : isMuted
+              ? "bg-red-500/20 hover:bg-red-500/30 border-red-500/30 text-red-300"
+              : "bg-black/40 hover:bg-black/60 border-white/20 text-[#fcedb6] shadow-[0_0_12px_rgba(212,175,55,0.3)]"
+          }`}
+        >
+          {isMuted ? (
+            <VolumeX className="w-4 h-4 text-red-400" />
+          ) : (
+            <Volume2 className="w-4 h-4 text-[#fcedb6] group-hover:scale-110 transition-transform" />
+          )}
+          <span className="text-[11px] font-medium tracking-wider uppercase">
+            {autoplayBlocked ? "Ovozni yoqish 🔊" : isMuted ? "Ovozsiz 🔇" : "Ovozli 🔊"}
+          </span>
+        </button>
+
+        {/* Skip Button */}
+        <button
+          onClick={handleSkip}
+          className="group flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-black/40 hover:bg-black/60 active:scale-95 backdrop-blur-xl border border-white/20 text-white/80 hover:text-white transition-all duration-200"
+        >
+          <span className="text-[11px] font-medium tracking-wider uppercase">O'tkazish</span>
+          <span className="text-xs text-white/50 group-hover:text-white/90 group-hover:translate-x-0.5 transition-all">
+            &rarr;
+          </span>
+        </button>
+      </div>
+
+      {/* BOTTOM PROGRESS & STATUS BAR (Floating Overlay) */}
+      <div
+        className="relative w-full max-w-md px-8 pb-8 flex flex-col items-center z-30 pointer-events-auto"
+        style={{
+          paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
+        }}
+      >
         {/* Dynamic Status Text */}
-        <div className="flex items-center justify-between w-full mb-2.5 text-[11px] tracking-wider text-white/60 uppercase font-mono">
+        <div className="flex items-center justify-between w-full mb-2.5 text-[11px] tracking-wider text-white/80 uppercase font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-ping" />
             <span>
@@ -240,11 +255,13 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
                 : "Xush kelibsiz!"}
             </span>
           </span>
-          <span className="text-[#fcedb6] font-bold">{Math.round(progress)}%</span>
+          <span className="text-[#fcedb6] font-bold drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]">
+            {Math.round(progress)}%
+          </span>
         </div>
 
         {/* Glowing Progress Bar Container */}
-        <div className="relative w-full h-[3.5px] bg-white/15 rounded-full overflow-hidden backdrop-blur-sm">
+        <div className="relative w-full h-[3.5px] bg-white/20 rounded-full overflow-hidden backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
           {/* Glowing Neon Track */}
           <div
             className="h-full rounded-full transition-all duration-150 ease-out"
@@ -257,7 +274,7 @@ export default function EltronBootSplash({ onComplete }: EltronBootSplashProps) 
         </div>
 
         {/* Device Brand Sub-caption */}
-        <p className="mt-3.5 text-[9px] uppercase tracking-[0.25em] text-white/35 text-center">
+        <p className="mt-3.5 text-[9px] uppercase tracking-[0.25em] text-white/50 text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
           Toshkent &bull; Original Sifat &bull; Kafolat
         </p>
       </div>
