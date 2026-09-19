@@ -19,11 +19,11 @@ export async function generateMetadata({ params }: { params: { lang: string } })
             : "Покупайте iPhone, Samsung, Xiaomi и другие мировые бренды в рассрочку. Бесплатная доставка по Ташкенту и официальная гарантия.",
         keywords: ["Eltron", "elektronika do'koni", "Toshkent", "muddatli to'lov", "iphone narxi", "samsung narxi", "O'zbekiston"],
         alternates: {
-            canonical: `${baseUrl}/${lang}`,
+            canonical: lang === 'uz' ? baseUrl : `${baseUrl}/ru`,
             languages: {
-                'uz-UZ': `${baseUrl}/uz`,
+                'uz-UZ': baseUrl,
                 'ru-RU': `${baseUrl}/ru`,
-                'x-default': `${baseUrl}/uz`,
+                'x-default': baseUrl,
             },
         }
     };

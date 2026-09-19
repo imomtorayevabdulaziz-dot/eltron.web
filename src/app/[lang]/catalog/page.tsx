@@ -23,18 +23,18 @@ export async function generateMetadata({ params }: { params: { lang: string } })
             description: lang === 'uz'
                 ? "Barcha turdagi original aksessuarlar va elektronika mahsulotlari katalogi."
                 : "Каталог всех видов оригинальных аксессуаров и электроники.",
-            url: `${baseUrl}/${lang}/catalog`,
+            url: lang === 'uz' ? `${baseUrl}/catalog` : `${baseUrl}/ru/catalog`,
             siteName: "Eltron",
             images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Eltron Katalog" }],
             locale: lang === 'uz' ? "uz_UZ" : "ru_RU",
             type: "website",
         },
         alternates: {
-            canonical: `${baseUrl}/${lang}/catalog`,
+            canonical: lang === 'uz' ? `${baseUrl}/catalog` : `${baseUrl}/ru/catalog`,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/catalog`,
+                'uz-UZ': `${baseUrl}/catalog`,
                 'ru-RU': `${baseUrl}/ru/catalog`,
-                'x-default': `${baseUrl}/uz/catalog`,
+                'x-default': `${baseUrl}/catalog`,
             },
         }
     };

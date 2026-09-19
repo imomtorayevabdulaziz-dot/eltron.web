@@ -31,22 +31,26 @@ export async function generateMetadata({ params }: { params: { lang: string; slu
         ? `${name}: широкий выбор по выгодным ценам. Рассрочка, официальная гарантия и быстрая доставка. Eltron.`
         : `${name}: keng tanlov hamyonbop narxlarda. Muddatli to'lov, rasmiy kafolat va tez yetkazib berish. Eltron.`;
 
+    const canonicalUrl = lang === 'ru'
+        ? `${baseUrl}/ru/catalog/${ruSlug}`
+        : `${baseUrl}/catalog/${uzSlug}`;
+
     return {
         title,
         description,
         openGraph: {
             title, description,
-            url: `${baseUrl}/${lang}/catalog/${canonicalSlug}`,
+            url: canonicalUrl,
             siteName: 'Eltron', type: 'website',
             locale: lang === 'ru' ? 'ru_RU' : 'uz_UZ',
             images: [{ url: '/og-image.png', width: 1200, height: 630, alt: name }],
         },
         alternates: {
-            canonical: `${baseUrl}/${lang}/catalog/${canonicalSlug}`,
+            canonical: canonicalUrl,
             languages: {
-                'uz-UZ': `${baseUrl}/uz/catalog/${uzSlug}`,
+                'uz-UZ': `${baseUrl}/catalog/${uzSlug}`,
                 'ru-RU': `${baseUrl}/ru/catalog/${ruSlug}`,
-                'x-default': `${baseUrl}/uz/catalog/${uzSlug}`,
+                'x-default': `${baseUrl}/catalog/${uzSlug}`,
             },
         },
         robots: { index: true, follow: true },
