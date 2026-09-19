@@ -46,19 +46,19 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // 2. Locale Redirection
-    const pathnameIsMissingLocale = i18n.locales.every(
-        (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-    );
-
-    if (pathnameIsMissingLocale && !pathname.startsWith('/api/')) {
-        const locale = getLocale(request);
-        const url = new URL(`/${locale}${pathname === '/' ? '' : pathname}`, request.url);
+    // 2. Clean URL Bar: Strip /uz prefix from URL bar if present
+    if (pathname === '/uz') {
+        const url = new URL('/', request.url);
         url.search = request.nextUrl.search;
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url, 308);
+    }
+    if (pathname.startsWith('/uz/')) {
+        const url = new URL(pathname.replace(/^\/uz/, ''), request.url);
+        url.search = request.nextUrl.search;
+        return NextResponse.redirect(url, 308);
     }
 
-    // 3. Admin Protection
+    // 3. Admin Protection & Private Routes
     let localePart: string = i18n.defaultLocale;
     for (const locale of i18n.locales) {
         if (pathname.startsWith(`/${locale}/`)) {
@@ -67,7 +67,7 @@ export async function middleware(request: NextRequest) {
         }
     }
 
-    const pathWithoutLocale = pathname.replace(`/${localePart}`, '');
+    const pathWithoutLocale = pathname.replace(new RegExp(`^/(${i18n.locales.join('|')})`), '') || pathname;
     const privateRoutes = [
         '/login',
         '/account',
@@ -94,7 +94,6 @@ export async function middleware(request: NextRequest) {
         return response;
     };
 
-    // 3. Admin Protection (Pages & API)
     if (pathWithoutLocale.startsWith('/admin') || pathname.startsWith('/api/admin')) {
         const adminToken = request.cookies.get('admin_token')?.value;
         const ADMIN_SECRET = process.env.ADMIN_SECRET?.trim() || "default-secret";
@@ -103,13 +102,11 @@ export async function middleware(request: NextRequest) {
         const isAdmin = payload && payload.role === 'admin';
 
         if (!isAdmin) {
-            // IF it's an API request, return 401
             if (pathname.startsWith('/api/')) {
                 return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
             }
             
-            // If it's a page request, redirect to login
-            const loginUrl = new URL(`/${localePart}/login`, request.url);
+            const loginUrl = new URL(`/login`, request.url);
             loginUrl.searchParams.set('redirect', pathname);
             return applyRobotsPolicy(NextResponse.redirect(loginUrl));
         }
@@ -117,11 +114,29 @@ export async function middleware(request: NextRequest) {
         return applyRobotsPolicy(NextResponse.next());
     }
 
+    // 4. Locale Resolution (Rewrite default Uzbek locale to keep address bar 100% clean)
+    const pathnameIsMissingLocale = i18n.locales.every(
+        (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    );
+
+    if (pathnameIsMissingLocale && !pathname.startsWith('/api/')) {
+        const locale = getLocale(request);
+        if (locale === 'uz') {
+            // Keep browser address bar 100% clean (no /uz) while serving Uzbek page internally
+            const url = new URL(`/uz${pathname === '/' ? '' : pathname}`, request.url);
+            url.search = request.nextUrl.search;
+            return applyRobotsPolicy(NextResponse.rewrite(url));
+        }
+        const url = new URL(`/${locale}${pathname === '/' ? '' : pathname}`, request.url);
+        url.search = request.nextUrl.search;
+        return applyRobotsPolicy(NextResponse.redirect(url));
+    }
+
     return applyRobotsPolicy(NextResponse.next());
 }
 
 export const config = {
     matcher: [
-        '/((?!_next/static|_next/image|favicon.ico|icons|images|brands|manifest.json|robots.txt|sitemap.xml|image-sitemap.xml|yandex_).*)',
+        '/((?!_next/static|_next/image|favicon.ico|icons|images|brands|videos|manifest.json|robots.txt|sitemap.xml|image-sitemap.xml|yandex_).*)',
     ],
 };
